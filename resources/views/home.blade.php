@@ -231,18 +231,83 @@
 
 </x-section>
 
+{{-- ĐÁNH GIÁ --}}
+<x-section id="danh-gia" class="s-danh-gia bg-slate-50">
+  <div class="s-danh-gia__header mb-10 text-center">
+    <h2 class="s-danh-gia__title text-3xl font-bold">Đánh giá từ khách hàng</h2>
+  </div>
 
-  {{-- ĐÁNH GIÁ --}}
-  <x-section id="danh-gia" class="s-danh-gia bg-slate-50">
-    <div class="s-danh-gia__header mb-10 text-center">
-      <h2 class="s-danh-gia__title text-3xl font-bold">Đánh giá từ khách hàng</h2>
+  {{-- BẮT ĐẦU CAROUSEL (Tái sử dụng home.js) --}}
+  <div class="relative" data-carousel>
+    
+    {{-- 1. Track chứa các item --}}
+    <div class="overflow-hidden">
+      <div class="flex transition-transform duration-500 ease-out" data-carousel-track>
+        
+        {{-- Item 1 (Sử dụng dữ liệu mẫu từ hình) --}}
+        <div class="flex-shrink-0 w-full px-3 pb-12" data-carousel-item>
+          <x-testimonial 
+            class="s-danh-gia__item" 
+            quote="Managing money used to be overwhelming. Now I feel in control, thanks to their simple tools and expert guidance. Everything's clear, organized, and stress-free." 
+            author="Guy Hawkins"
+            title="Freelance Designer"
+            avatar="images/avatars/guy-hawkins.png" {{-- BẠN CẦN THÊM ẢNH NÀY --}}
+          />
+        </div>
+
+        {{-- Item 2 (Dữ liệu cũ) --}}
+        <div class="flex-shrink-0 w-full px-3 pb-12" data-carousel-item>
+          <x-testimonial 
+            class="s-danh-gia__item" 
+            quote="Tư vấn nhiệt tình, giao xe nhanh." 
+            author="Anh Minh"
+            title="Khách hàng" {{-- Thêm title --}}
+            avatar="images/avatars/anh-minh.png" {{-- BẠN CẦN THÊM ẢNH NÀY --}}
+          />
+        </div>
+
+        {{-- Item 3 (Dữ liệu cũ) --}}
+        <div class="flex-shrink-0 w-full px-3 pb-12" data-carousel-item>
+          <x-testimonial 
+            class="s-danh-gia__item" 
+            quote="Giá tốt, hậu mãi chu đáo." 
+            author="Chị Hạnh"
+            title="Doanh nghiệp" {{-- Thêm title --}}
+            avatar="images/avatars/chi-hanh.png" {{-- BẠN CẦN THÊM ẢNH NÀY --}}
+          />
+        </div>
+        
+        {{-- Item 4 (Dữ liệu cũ) --}}
+        <div class="flex-shrink-0 w-full px-3 pb-12" data-carousel-item>
+          <x-testimonial 
+            class="s-danh-gia__item" 
+            quote="Trải nghiệm lái thử tuyệt vời." 
+            author="Bạn Khôi"
+            title="Học sinh" {{-- Thêm title --}}
+            avatar="images/avatars/ban-khoi.png" {{-- BẠN CẦN THÊM ẢNH NÀY --}}
+          />
+        </div>
+
+      </div>
     </div>
-    <div class="s-danh-gia__grid grid md:grid-cols-3 gap-6">
-      <x-testimonial class="s-danh-gia__item" quote="Tư vấn nhiệt tình, giao xe nhanh." author="Anh Minh" />
-      <x-testimonial class="s-danh-gia__item" quote="Giá tốt, hậu mãi chu đáo." author="Chị Hạnh" />
-      <x-testimonial class="s-danh-gia__item" quote="Trải nghiệm lái thử tuyệt vời." author="Bạn Khôi" />
+
+    {{-- 2. Navigation (Dots) --}}
+    {{-- 
+      Chúng ta không cần nút Prev/Next cho design này, 
+      nhưng vẫn thêm thẻ 'hidden' để JS không bị lỗi
+    --}}
+    <button type="button" data-carousel-prev class="hidden"></button>
+    <button type="button" data-carousel-next class="hidden"></button>
+    
+    {{-- Dots container (JS sẽ tự động điền vào đây) --}}
+    {{-- Thêm 'mt-8' để tạo khoảng cách từ slider đến dots --}}
+    <div class="mt-8 flex items-center justify-center gap-2" data-carousel-dots>
     </div>
-  </x-section>
+    
+  </div>
+  {{-- KẾT THÚC CAROUSEL --}}
+
+</x-section>
 
   {{-- CỬA HÀNG --}}
   <x-section id="cua-hang" class="s-cua-hang bg-white">
