@@ -10,8 +10,7 @@
     $slides = [
       asset('images/hero-1.png'),
        asset('images/hero-2.jpg'),
-      // asset('images/hero-2.png'),
-      // asset('images/hero-3.png'),
+       asset('images/hero-3.png'),
     ];
   @endphp
 
@@ -310,36 +309,153 @@
 </x-section>
 
   {{-- CỬA HÀNG --}}
-  <x-section id="cua-hang" class="s-cua-hang bg-white">
-    <div class="s-cua-hang__header mb-10 text-center">
-      <h2 class="s-cua-hang__title text-3xl font-bold">Hệ thống cửa hàng</h2>
+  <section id="cua-hang" class="bg-white pt-16 md:pt-24 relative z-10">
+  
+  {{-- Tiêu đề (Căn trái) --}}
+  <div class="max-w-7xl mx-auto px-4 mb-10">
+    <h2 class="text-3xl font-bold text-skytt-text">Hệ thống cửa hàng</h2>
+  </div>
+
+  {{-- Container cho ảnh nền --}}
+ <div 
+    class="relative bg-cover bg-center py-32 md:py-56"
+    style="background-image: url('{{ asset('images/address-bg.png') }}')"
+  >
+    {{-- Lớp phủ mờ --}}
+    <div class="absolute inset-0 bg-black/20"></div>
+
+    {{-- Card "Glassmorphism" --}}
+    <div class="relative max-w-5xl mx-auto grid md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl
+                bg-white/60 backdrop-blur-lg border border-white/20
+                max-md:mx-4">
+      
+      {{-- CỘT BÊN TRÁI (THÔNG TIN) --}}
+      <div class="p-8 md:p-10 text-skytt-text space-y-6">
+        
+        {{-- Chi nhánh 1 --}}
+        <div class="space-y-1">
+          <h3 class="font-bold">VinFast SKYTT (CN1)</h3>
+          <a 
+            href="https://www.google.com/maps/place/12B+Nguy%E1%BB%85n+Th%E1%BB%8B+%C4%90%E1%BB%8Bnh,+B%C3%ACnh+Tr%C6%B0ng+T%C3%A2y,+Qu%E1%BA%ADn+2,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh,+Vi%E1%BB%87t+Nam" 
+            target="_blank" rel="noopener"
+            class="block hover:text-skytt-btn transition-colors"
+          >
+            12B Nguyễn Thị Định, Phường Bình Trưng,TP.HCM (Quận 2)
+          </a>
+          <p>Hotline: 0862 172 217</p>
+        </div>
+
+        {{-- Chi nhánh 2 --}}
+        <div class="space-y-1">
+          <h3 class="font-bold">VinFast SKYTT (CN2)</h3>
+          <a 
+            href="https://www.google.com/maps/place/300a+Nguy%E1%BB%85n+T%E1%BA%A5t+Th%C3%A0nh,+Ph%C6%B0%E1%BB%9Dng+13,+Qu%E1%BA%ADn+4,+Th%C3%A0nh+ph%E1%BB%91+H%E1%BB%93+Ch%C3%AD+Minh,+Vi%E1%BB%87t+Nam" 
+            target="_blank" rel="noopener"
+            class="block hover:text-skytt-btn transition-colors"
+          >
+            300A-B Nguyễn Tất Thành, Phường Xóm Chiếu,TP.HCM (Quận 4)
+          </a>
+          <p>Hotline: 096 4432766</p>
+        </div>
+
+        {{-- Ngăn cách --}}
+        <hr class="border-slate-400/50">
+
+        {{-- Email --}}
+        <div>
+          <a href="mailto:skytt.vinfast@gmail.com" class="hover:text-skytt-btn transition-colors">
+            skytt.vinfast@gmail.com
+          </a>
+        </div>
+
+        {{-- Social Icons (Sử dụng <img>) --}}
+        <div class="flex items-center gap-4">
+          {{-- Facebook --}}
+          <a href="#" target="_blank" class="hover:opacity-80 transition-opacity">
+            <img 
+              src="{{ asset('images/icons/facebook.png') }}" 
+              alt="Facebook"
+              class="w-6 h-6"
+            >
+          </a>
+          {{-- Instagram --}}
+          <a href="#" target="_blank" class="hover:opacity-80 transition-opacity">
+            <img 
+              src="{{ asset('images/icons/instagram.png') }}" 
+              alt="Instagram"
+              class="w-6 h-6"
+            >
+          </a>
+          {{-- TikTok --}}
+          <a href="#" target="_blank" class="hover:opacity-80 transition-opacity">
+            <img 
+              src="{{ asset('images/icons/tiktok.png') }}" 
+              alt="TikTok"
+              class="w-6 h-6"
+            >
+          </a>
+        </div>
+      </div>
+      
+      {{-- CỘT BÊN PHẢI (MAP) --}}
+      
+      {{-- 1. Thẻ 'div' cha VẪN GIỮ NGUYÊN các class --}}
+      <div class="block overflow-hidden rounded-b-3xl md:rounded-b-none md:rounded-r-3xl isolation-isolate">
+        
+        {{-- 2. THÊM CÁC CLASS BO TRÒN VÀO DÒNG <iframe> DƯỚI ĐÂY --}}
+        <iframe 
+          src="https://www.google.com/maps/d/embed?mid=17qwE_yFM3yk0tl3i2qrRUgNsEMQp8ok&ehbc=2E312F" 
+          class="w-full h-full min-h-[300px] rounded-b-3xl md:rounded-b-none md:rounded-r-3xl" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy">
+        </iframe>
+      </div>
+
     </div>
-    <div class="s-cua-hang__grid grid md:grid-cols-2 gap-6">
-      <x-store class="s-cua-hang__item"
-        name="VinFast SKYTT (CN1)"
-        address="12B Nguyễn Thị Định, Phường Bình Trưng, TP.HCM (Q2)"
-        hotline="0862 172 217"
-      />
-      <x-store class="s-cua-hang__item"
-        name="VinFast SKYTT (CN2)"
-        address="300A-B Nguyễn Tất Thành, Phường Xóm Chiếu, TP.HCM (Q4)"
-        hotline="096 443 2766"
-      />
-    </div>
-  </x-section>
+  </div>
+</section>
 
     {{-- GIỚI THIỆU --}}
-  <x-section id="gioi-thieu" class="s-gioi-thieu bg-slate-50">
-    <div class="s-gioi-thieu__header mb-10 text-center">
-      <h2 class="s-gioi-thieu__title text-3xl font-bold">Giới thiệu</h2>
-      <p class="s-gioi-thieu__subtitle mt-2 text-slate-600 text-sm fw-semibold">Công ty VinFast SKYTT</p>
+{{-- 
+  THAY THẾ BẰNG LAYOUT 2 CỘT MỚI
+  - Giữ 'relative z-5' để sửa lỗi footer
+  - Đổi 'bg-slate-50' thành 'bg-white'
+--}}
+<x-section id="gioi-thieu" class="s-gioi-thieu bg-white relative z-5  py-30 md:py-50">
+  
+  {{-- Container 2 cột, căn giữa theo chiều dọc --}}
+  <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+    
+    {{-- CỘT BÊN TRÁI (TEXT) --}}
+    <div>
+      <h2 class="text-3xl font-bold text-skytt-text">
+        Công ty VinFast SKYTT
+      </h2>
+      <p class="mt-4 text-slate-600">
+        VinFast SKYTT là đại diện ủy quyền chính thức của VinFast, cam kết mang đến trải nghiệm xe điện thông minh, hiện đại và đồng hành cùng bạn trong mọi hành trình. Với hệ thống phục vụ chuyên nghiệp, từ lái thử, tư vấn, giao xe đến hậu mãi – mọi dịch vụ đều nhanh chóng, trong sáng và tận tâm.
+      </p>
+      <div class="mt-8">
+        <x-btn href="#" label="Xem thêm" :arrow="true" />
+      </div>
     </div>
-    <p class="s-gioi-thieu__text max-w-3xl mx-auto text-center text-slate-600">
-      VinFast SKYTT là đại diện ủy quyền chính thức của VinFast, cam kết mang đến trải nghiệm xe điện thông minh, hiện đại
-      và đồng hành cùng bạn trong mọi hành trình. Với hệ thống phục vụ chuyên nghiệp, từ lái thử, tư vấn, giao xe đến hậu mãi –
-      mọi dịch vụ đều nhanh chóng, trong sáng và tận tâm.
-    </p>
-  </x-section>
+    
+    {{-- CỘT BÊN PHẢI (IMAGE) --}}
+    <div class="max-md:mt-8"> {{-- Thêm khoảng cách trên di động --}}
+      {{-- 
+        QUAN TRỌNG: 
+        Hãy đổi 'about-image.jpg' thành tên ảnh có pháo hoa của bạn
+        và đặt nó trong thư mục 'public/images/'
+      --}}
+      <img 
+        src="{{ asset('images/about-image.png') }}" 
+        alt="Công ty VinFast SKYTT"
+        class="w-full rounded-3xl object-cover shadow-lg" {{-- Bo góc lớn (rounded-3xl) --}}
+      >
+    </div>
+
+  </div>
+</x-section>
 
 @endsection
 
