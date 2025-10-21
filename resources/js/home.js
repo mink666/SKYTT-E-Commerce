@@ -34,3 +34,59 @@ document.addEventListener('DOMContentLoaded', () => { // init khi DOM sẵn
 
   render(); start();                                                      // khởi động
 });
+
+// ===== Best-seller carousel (1-2-3 cột) =====
+(function () {
+  const roots = document.querySelectorAll('[data-carousel]'); // chọn tất cả carousel
+  if (!roots.length) return;
+
+  roots.forEach((root) => {
+    const track = root.querySelector('[data-carousel-track]');       // track
+    const items = [...root.querySelectorAll('[data-carousel-item]')]; // item
+    const prev  = root.querySelector('[data-carousel-prev]');        // nút prev
+    const next  = root.querySelector('[data-carousel-next]');        // nút next
+    const dotsW = root.querySelector('[data-carousel-dots]');        // dots wrap
+    let cols = 1, page = 0, pages = 1;
+
+    const computeCols = () => {                                       // cols responsive
+      const w = window.innerWidth;
+      if (w >= 1024) return 3; // lg
+      if (w >= 768)  return 2; // md
+      return 1;                 // sm
+    };
+
+    function layout() {                                               // set width & pages
+      cols = computeCols();
+      items.forEach(it => it.style.width = `${100 / cols}%`);         // mỗi item 1/cols
+      pages = Math.max(1, Math.ceil(items.length / cols));            // tổng số trang
+      page = Math.min(page, pages - 1);                               // không vượt trang cuối
+      buildDots();
+      render();
+    }
+
+    function render() {                                               // translate theo trang
+      track.style.transform = `translateX(-${page * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('opacity-100', i === page));
+      dots.forEach((d, i) => d.classList.toggle('opacity-40', i !== page));
+    }
+
+    function go(p) { page = (p + pages) % pages; render(); }          // chuyển trang
+    prev?.addEventListener('click', () => go(page - 1));
+    next?.addEventListener('click', () => go(page + 1));
+
+    let dots = [];
+    function buildDots() {                                            // tạo dots ngắn
+      dotsW.innerHTML = '';
+      dots = Array.from({ length: pages }).map((_, i) => {
+        const el = document.createElement('span');
+        el.className = 'w-8 h-1 rounded-full bg-slate-300 opacity-40 cursor-pointer'; // “gạch” mảnh
+        el.onclick = () => go(i);
+        dotsW.appendChild(el);
+        return el;
+      });
+    }
+
+    window.addEventListener('resize', () => layout());                // reflow khi resize
+    layout();                                                         // khởi tạo
+  });
+})();

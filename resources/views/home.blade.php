@@ -107,21 +107,130 @@
 
 
 
-  {{-- BÁN CHẠY --}}
-  <x-section id="ban-chay" class="s-ban-chay bg-white">
-    <div class="s-ban-chay__header mb-10 text-center">
-      <h2 class="s-ban-chay__title text-3xl font-bold">Sản phẩm bán chạy</h2>
-      <p class="s-ban-chay__subtitle mt-2 text-slate-600 text-sm fw-semibold">Xe máy điện học sinh</p>
+  {{-- BÁN CHẠY (slider 1-2-3 cột, có prev/next + dots) --}}
+{{-- SẢN PHẨM BÁN CHẠY (Carousel 1-2-3 cột, tái sử dụng home.js) --}}
+<x-section id="ban-chay" class="bg-white">
+  <div class="mb-6">
+    <h2 class="text-2xl md:text-3xl font-bold">SẢN PHẨM BÁN CHẠY</h2>
+    <p class="mt-1 text-slate-600">Xe máy điện học sinh</p>
+  </div>
+
+  {{-- BẮT ĐẦU CAROUSEL --}}
+  <div class="relative" data-carousel>
+    
+    {{-- 1. Track chứa các item --}}
+    <div class="overflow-hidden">
+      <div class="flex transition-transform duration-500 ease-out" data-carousel-track>
+        
+        {{-- Item 1 --}}
+        <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+          {{-- 1. Card (chỉ chứa ảnh và text overlay) --}}
+          <x-card 
+            variant="thumb" 
+            image="images/banChay/1.png"
+            title="Xe máy điện VinFast Motio" {{-- title này dùng cho alt text của ảnh --}}
+            
+            {{-- Props mới cho text overlay --}}
+            :newBadge="true"
+            topRightTitle="Motio"
+            topRightSubtitle="Xe máy điện"
+          />
+          
+          {{-- 2. Text bên ngoài card (quay lại như cũ) --}}
+          <div class="mt-4 space-y-2">
+            <p class="text-slate-600">Xe máy điện VinFast Motio</p>
+            <p class="font-extrabold text-lg">12.000.000 VNĐ</p>
+          </div>
+  
+          {{-- 3. Nút bên ngoài card (quay lại như cũ) --}}
+          <div class="mt-4">
+            <x-btn href="#motio" label="Xem thêm" :arrow="true" />
+          </div>
+        </div>
+
+        {{-- Item 2 --}}
+        <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+          <x-card 
+            variant="thumb" 
+            image="images/banChay/2.png"
+            title="Xe máy điện VinFast EvoGrand Lite"
+             :newBadge="true"
+            topRightTitle="EvoGrand"
+            topRightSubtitle="Lite"
+          />
+          <div class="mt-4 space-y-2">
+            <p class="text-slate-600">Xe máy điện VinFast EvoGrand Lite</p>
+            <p class="font-extrabold text-lg">18.000.000 VNĐ</p>
+          </div>
+          <div class="mt-4">
+            <x-btn href="#evogrand" label="Xem thêm" :arrow="true" />
+          </div>
+        </div>
+
+        {{-- Item 3 --}}
+        <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+          <x-card 
+            variant="thumb" 
+            image="images/banChay/3.png"
+            title="Xe máy điện VinFast Evo Lite Neo"
+             :newBadge="true"
+            topRightTitle="Evo Lite"
+            topRightSubtitle="Neo"
+          />
+          <div class="mt-4 space-y-2">
+            <p class="text-slate-600">Xe máy điện VinFast Evo Lite Neo</p>
+            <p class="font-extrabold text-lg">12.000.000 VNĐ</p>
+          </div>
+          <div class="mt-4">
+            <x-btn href="#evo-lite-neo" label="Xem thêm" :arrow="true" />
+          </div>
+        </div>
+
+        {{-- Item 4 (Copy từ 1) --}}
+        <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+          <x-card 
+            variant="thumb" 
+            image="images/banChay/4.png"
+            title="Xe máy điện VinFast Motio (2)"
+             :newBadge="true"
+            topRightTitle="Motio"
+            topRightSubtitle="Xe máy điện"
+          />
+          <div class="mt-4 space-y-2">
+            <p class="text-slate-600">Xe máy điện VinFast Motio</p>
+            <p class="font-extrabold text-lg">12.000.000 VNĐ</p>
+          </div>
+          <div class="mt-4">
+            <x-btn href="#motio" label="Xem thêm" :arrow="true" />
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="s-ban-chay__grid grid md:grid-cols-3 gap-6">
-      <x-card class="s-ban-chay__card" title="VinFast Motio" price="12.000.000 VNĐ" image="images/hero.jpg" :stats="[]" />
-      <x-card class="s-ban-chay__card" title="EvoGrand Lite" price="18.000.000 VNĐ" image="images/evogrand.jpg" :stats="[]" />
-      <x-card class="s-ban-chay__card" title="Evo Lite Neo" price="12.000.000 VNĐ" image="images/evo-lite-neo.jpg" :stats="[]" />
+
+    {{-- 2. Navigation (Giữ nguyên) --}}
+    <div class="mt-8 flex items-center justify-center gap-4">
+      <button type="button" aria-label="Previous"
+        class="grid place-items-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500"
+        data-carousel-prev>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"/></svg>
+      </button>
+      
+      <div class="flex items-center justify-center gap-2" data-carousel-dots>
+      </div>
+      
+      <button type="button" aria-label="Next"
+        class="grid place-items-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500"
+        data-carousel-next>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6"><path fill="currentColor" d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
+      </button>
     </div>
-    <div class="s-ban-chay__more mt-8 text-center">
-  <x-btn href="#san-pham" label="Xem thêm" variant="outline" />
-</div>
-  </x-section>
+
+  </div>
+  {{-- KẾT THÚC CAROUSEL --}}
+
+</x-section>
+
 
   {{-- ĐÁNH GIÁ --}}
   <x-section id="danh-gia" class="s-danh-gia bg-slate-50">
