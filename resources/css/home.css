@@ -1,0 +1,31 @@
+/* File: resources/css/home.css */
+
+/* Đoạn CSS này sẽ CHỈ áp dụng cho trang chủ */
+
+.home-welcome-banner {
+    background-color: #e0f7fa;
+    color: #00796b;
+    padding: 2rem;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.home-welcome-banner h1 {
+    color: #004d40;
+    margin: 0;
+}
+
+.special-button {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.special-button:hover {
+    background-color: #f57c00;
+}

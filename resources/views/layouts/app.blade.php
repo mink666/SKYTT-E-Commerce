@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'SKYTT')</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VinFast SKYTT — Demo</title>
+@vite(['resources/js/app.js'])
 </head>
+<body class="min-h-screen antialiased text-slate-800 bg-white">
+  {{-- NAVBAR từ layouts/navbar.blade.php --}}
+  @include('layouts.navbar')
 
-<body>
-    <div>
-        <header>
-            @include('layouts.navbar')
-        </header>
+  <main>
+    {{ $slot ?? '' }}
+    @yield('content')
+  </main>
 
-        <div class="content">
-            @yield('content')
-        </div>
+  {{-- FOOTER từ layouts/footer.blade.php --}}
+  @include('layouts.footer')
 
-        <footer>
-            @include('layouts.footer')
-        </footer>
-    </div>
+  @stack('scripts') 
 </body>
-
 </html>

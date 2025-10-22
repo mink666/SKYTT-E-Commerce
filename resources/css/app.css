@@ -1,11 +1,52 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+/* Font Mulish (giữ như bạn đã thiết lập) */
+@font-face{
+  font-family:"Mulish";
+  src:url("../fonts/Mulish-VariableFont_wght.ttf") format("truetype-variations");
+  font-weight:200 900; font-style:normal; font-display:swap;
 }
+
+/* === Tone tổng === */
+:root{
+  --skytt-text: #0B2434;   /* màu chữ */
+  --skytt-btn:  #3D5A17;   /* màu nền nút */
+  --skytt-arrow-bg: #DFE2E4; 
+   --skytt-footer-bg: #E5EBDE;
+}
+body{
+  font-family:"Mulish", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color: var(--skytt-text);     /* Áp màu chữ toàn site */
+}
+
+/* Small text = semibold; helper bold */
+small,.text-xs,.text-sm{ font-weight:600; }
+.fw-semibold{ font-weight:600; }
+.fw-bold{ font-weight:700; }
+
+/* CTA pill mặc định (dùng cho nav) - có thể override bằng Tailwind class bổ sung */
+.btn-pil{
+  background: var(--skytt-btn);
+  color: #fff;
+  border-radius: 9999px;
+  padding: 10px 18px;
+  display:inline-flex; align-items:center; gap:.5rem;
+}
+
+/* Arrow bubble dùng lại trong nhiều nơi */
+.arrow-bubble{
+  width: 28px; height: 28px; border-radius: 9999px;
+  background: var(--skytt-arrow-bg);
+  display:grid; place-items:center;
+   color: var(--skytt-btn);
+}
+
+/* social circle */
+.social-circle{
+  width: 40px; height: 40px; border-radius: 9999px;
+  background: var(--skytt-text);
+  color: #fff;                /* icon trắng */
+  display: grid; place-items: center;
+  transition: background .2s ease, transform .2s ease;
+}
+.social-circle:hover{ background: var(--skytt-btn); transform: translateY(-1px); }
