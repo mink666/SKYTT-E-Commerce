@@ -232,7 +232,7 @@
 
 {{-- ĐÁNH GIÁ --}}
 <x-section id="danh-gia" class="s-danh-gia bg-slate-50">
-  <div class="s-danh-gia__header mb-10 text-center">
+  <div class="s-danh-gia__header mb-10 ">
     <h2 class="s-danh-gia__title text-3xl font-bold">Đánh giá từ khách hàng</h2>
   </div>
 
@@ -308,16 +308,20 @@
 
 </x-section>
 
-  {{-- CỬA HÀNG --}}
-  <section id="cua-hang" class="bg-white pt-16 md:pt-24 relative z-10">
-  
-  {{-- Tiêu đề (Căn trái) --}}
-  <div class="max-w-7xl mx-auto px-4 mb-10">
-    <h2 class="text-3xl font-bold text-skytt-text">Hệ thống cửa hàng</h2>
-  </div>
 
+
+  {{-- CỬA HÀNG --}}
+  {{-- 1. TIÊU ĐỀ (ĐẶT TRONG X-SECTION ĐỂ CĂN HÀNG) --}}
+
+<x-section class="s-cua-hang-header bg-white pt-16 md:pt-24 pb-10">
+  <h2 class="text-3xl font-bold text-skytt-text">Hệ thống cửa hàng</h2>
+</x-section>
+
+{{-- 2. NỘI DUNG (ẢNH NỀN FULL-WIDTH) --}}
+
+<section id="cua-hang" class="bg-white relative z-10">
   {{-- Container cho ảnh nền --}}
- <div 
+  <div 
     class="relative bg-cover bg-center py-32 md:py-56"
     style="background-image: url('{{ asset('images/address-bg.png') }}')"
   >
@@ -378,7 +382,7 @@
               class="w-6 h-6"
             >
           </a>
-          {{-- Instagram --}}
+          {{-- Youtube --}}
           <a href="#" target="_blank" class="hover:opacity-80 transition-opacity">
             <img 
               src="{{ asset('images/icons/instagram.png') }}" 
@@ -424,15 +428,23 @@
 --}}
 <x-section id="gioi-thieu" class="s-gioi-thieu bg-white relative z-5  py-30 md:py-50">
   
-  {{-- Container 2 cột, căn giữa theo chiều dọc --}}
-  <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
+ {{-- === BẮT ĐẦU SỬA LỖI === --}}
+  {{-- 1. Thêm khối tiêu đề riêng (giống hệt section "Đánh giá") --}}
+  <div class="s-gioi-thieu__header mb-10">
+    <h2 class="s-gioi-thieu__title text-3xl font-bold text-skytt-text">
+      Công ty VinFast SKYTT
+    </h2>
+  </div>
+  {{-- === KẾT THÚC SỬA LỖI === --}}
+
+  {{-- Container 2 cột --}}
+  <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
     
     {{-- CỘT BÊN TRÁI (TEXT) --}}
     <div>
-      <h2 class="text-3xl font-bold text-skytt-text">
-        Công ty VinFast SKYTT
-      </h2>
-      <p class="mt-4 text-slate-600">
+    
+      {{-- 3. XÓA 'mt-4' ở <p> bên dưới vì đã có 'mb-10' ở trên --}}
+      <p class="text-slate-600">
         VinFast SKYTT là đại diện ủy quyền chính thức của VinFast, cam kết mang đến trải nghiệm xe điện thông minh, hiện đại và đồng hành cùng bạn trong mọi hành trình. Với hệ thống phục vụ chuyên nghiệp, từ lái thử, tư vấn, giao xe đến hậu mãi – mọi dịch vụ đều nhanh chóng, trong sáng và tận tâm.
       </p>
       <div class="mt-8">
@@ -441,16 +453,11 @@
     </div>
     
     {{-- CỘT BÊN PHẢI (IMAGE) --}}
-    <div class="max-md:mt-8"> {{-- Thêm khoảng cách trên di động --}}
-      {{-- 
-        QUAN TRỌNG: 
-        Hãy đổi 'about-image.jpg' thành tên ảnh có pháo hoa của bạn
-        và đặt nó trong thư mục 'public/images/'
-      --}}
+    <div class="md:-mt-[4.75rem]">
       <img 
         src="{{ asset('images/about-image.png') }}" 
         alt="Công ty VinFast SKYTT"
-        class="w-full rounded-3xl object-cover shadow-lg" {{-- Bo góc lớn (rounded-3xl) --}}
+        class="w-full rounded-3xl object-cover shadow-lg"
       >
     </div>
 
