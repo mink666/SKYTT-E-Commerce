@@ -311,20 +311,17 @@
 
 
   {{-- CỬA HÀNG --}}
-  <section id="cua-hang" class="bg-white pt-16 md:pt-24 relative z-10">
+  {{-- 1. TIÊU ĐỀ (ĐẶT TRONG X-SECTION ĐỂ CĂN HÀNG) --}}
 
-  {{-- Tiêu đề (Căn trái) --}}
-  <div class="max-w-7xl mx-auto px-4 mb-10">
-    <h2 class="text-3xl font-bold text-skytt-text">Hệ thống cửa hàng</h2>
-  </div>
+<x-section class="s-cua-hang-header bg-white pt-16 md:pt-24 pb-10">
+  <h2 class="text-3xl font-bold text-skytt-text">Hệ thống cửa hàng</h2>
+</x-section>
+
+{{-- 2. NỘI DUNG (ẢNH NỀN FULL-WIDTH) --}}
 
 <section id="cua-hang" class="bg-white relative z-10">
   {{-- Container cho ảnh nền --}}
-<<<<<<<<< Temporary merge branch 1
   <div
-=========
- <div
->>>>>>>>> Temporary merge branch 2
     class="relative bg-cover bg-center py-32 md:py-56"
     style="background-image: url('{{ asset('images/address-bg.png') }}')"
   >
@@ -430,7 +427,6 @@
   - Đổi 'bg-slate-50' thành 'bg-white'
 --}}
 <x-section id="gioi-thieu" class="s-gioi-thieu bg-white relative z-5  py-30 md:py-50">
-<<<<<<<<< Temporary merge branch 1
 
  {{-- === BẮT ĐẦU SỬA LỖI === --}}
   {{-- 1. Thêm khối tiêu đề riêng (giống hệt section "Đánh giá") --}}
@@ -444,12 +440,6 @@
   {{-- Container 2 cột --}}
   <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-start">
 
-=========
-
-  {{-- Container 2 cột, căn giữa theo chiều dọc --}}
-  <div class="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
-
->>>>>>>>> Temporary merge branch 2
     {{-- CỘT BÊN TRÁI (TEXT) --}}
     <div>
 
@@ -463,20 +453,9 @@
     </div>
 
     {{-- CỘT BÊN PHẢI (IMAGE) --}}
-<<<<<<<<< Temporary merge branch 1
     <div class="md:-mt-[4.75rem]">
       <img
         src="{{ asset('images/about-image.png') }}"
-=========
-    <div class="max-md:mt-8"> {{-- Thêm khoảng cách trên di động --}}
-      {{--
-        QUAN TRỌNG:
-        Hãy đổi 'about-image.jpg' thành tên ảnh có pháo hoa của bạn
-        và đặt nó trong thư mục 'public/images/'
-      --}}
-      <img
-        src="{{ asset('images/about-image.png') }}"
->>>>>>>>> Temporary merge branch 2
         alt="Công ty VinFast SKYTT"
         class="w-full rounded-3xl object-cover shadow-lg"
       >
