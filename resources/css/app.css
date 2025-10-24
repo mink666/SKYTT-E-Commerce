@@ -7,6 +7,15 @@
   font-weight:200 900; font-style:normal; font-display:swap;
 }
 
+@font-face {
+  font-family: "Lexend Deca";
+  src: url("/fonts/LexendDeca-VariableFont_wght.ttf") format("truetype");
+  font-weight: 100 900;        /* variable font range */
+  font-style: normal;
+  font-display: swap;
+}
+
+
 /* === Tone tổng === */
 :root{
   --skytt-text: #0B2434;   /* màu chữ */
@@ -50,3 +59,29 @@ small,.text-xs,.text-sm{ font-weight:600; }
   transition: background .2s ease, transform .2s ease;
 }
 .social-circle:hover{ background: var(--skytt-btn); transform: translateY(-1px); }
+
+
+
+/* thay đổi spacing cho text elements */
+@layer base {
+  /* Đừng set trên body */
+  body { letter-spacing: normal; }
+
+  /* Áp spacing -3 cho text elements */
+  :where(h1,h2,h3,h4,h5,h6,p,span,small,a,li,dt,dd,label,button,figcaption) {
+    letter-spacing: -0.03em;
+  }
+
+  /* Chặn tràn ngang do full-bleed / w-screen */
+  html, body { overflow-x: clip; } /* hoặc overflow-x: hidden; nếu browser cũ */
+}
+
+@layer base {
+  h2 {
+    font-family: var(--font-lexend) !important;
+    font-weight: 600;                 /* semibold */
+    /* với variable font, đảm bảo wght=600 */
+    font-variation-settings: "wght" 600;
+  }
+}
+
