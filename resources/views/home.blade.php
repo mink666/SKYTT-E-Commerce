@@ -73,20 +73,23 @@
     :reverse="false"                                  {{-- text trái / ảnh phải --}}
   />
 
-  {{-- 2) Evo Lite Neo (đảo layout) --}}
-  <x-product-feature
-    class="bg-slate-50"
-    image="images/evo-lite-neo.png"
-    title="Vinfast Evo Lite Neo"
-    price="Giá niêm yết: 14.400.000 VND"
-    :stats="[
-      ['label'=>'Tốc độ tối đa','value'=>'49 km/h*'],
-      ['label'=>'Quãng đường mỗi sạc','value'=>'78 km*'],
-      ['label'=>'Cốp','value'=>'17 lít'],
-    ]"
-    link="#evo-lite-neo"
-    :reverse="true"                                   {{-- ảnh trái / text phải --}}
-  />
+{{-- 2) Evo Lite Neo (đảo layout + flip ảnh ngang) --}}
+<x-product-feature
+  class="bg-slate-50
+         [&>div:first-child]:lg:pr-6 [&>div:first-child]:xl:pr-8"   {{-- text sát rìa phải hơn --}}
+  image="images/evo-lite-neo.png"
+  title="Vinfast Evo Lite Neo"
+  price="Giá niêm yết: 14.400.000 VND"
+  :stats="[
+    ['label'=>'Tốc độ tối đa','value'=>'49 km/h*'],
+    ['label'=>'Quãng đường mỗi sạc','value'=>'78 km*'],
+    ['label'=>'Cốp','value'=>'17 lít'],
+  ]"
+  link="#evo-lite-neo"
+  :reverse="true"
+  :imageClass="'scale-x-[-1] lg:scale-[1.55] xl:scale-[1.65] lg:-ml-6 -mt-2'"  {{-- <-- lật ngang + phóng to --}}
+/>
+
 
   {{-- 3) EvoGrand --}}
   <x-product-feature

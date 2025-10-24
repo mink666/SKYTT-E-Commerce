@@ -19,7 +19,8 @@
     <div class="mx-auto max-w-[1500px] px-6 grid lg:grid-cols-2 gap-6 items-center"> {{-- khung grid --}}
 
       {{-- CỘT TEXT --}}
-      <div class="{{ $textOrder }} space-y-3 flex flex-col {{ $reverse ? 'text-right items-end lg:pr-20 xl:pr-28' : 'lg:pl-20 xl:pl-28' }}"> {{-- khi reverse thì căn phải --}}
+<div class="{{ $textOrder }} space-y-3 flex flex-col
+       {{ $reverse ? 'ml-auto text-left items-start max-w-[560px] lg:pr-0 xl:pr-0' : 'lg:pl-20 xl:pl-28' }}"> {{-- nằm bên phải, chữ canh trái --}}
         <div class="text-sm text-slate-600">{{ $subtitle }}</div> {{-- phụ đề --}}
         <h3 class="text-3xl md:text-4xl font-extrabold leading-tight">{{ $title }}</h3> {{-- tiêu đề --}}
         @if($price)
