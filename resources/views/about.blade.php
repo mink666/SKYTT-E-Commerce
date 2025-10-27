@@ -107,92 +107,100 @@
 </section>
 
 
-  {{-- SỨ MỆNH (so le ảnh / card component) --}}
-  <x-section id="mission" class="bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-semibold  text-center mb-8">Sứ mệnh của VinFast SKYTT</h2>
+ {{-- MISSION — theo container trang Home, không full screen --}}
+<x-section id="su-menh" class="bg-white !px-0">
+  <div class="max-w-[1200px] mx-auto px-4 md:px-6 space-y-8">
+<x-mission-card
+  tone="gray"
+  icon="images/about/icon-1.png"
+  title="Lựa chọn bền vững"
+  desc="Gồm hỗ trợ đăng ký biển số, bảo hiểm, bảo dưỡng và hậu mãi – tạo sự an tâm bền lâu cho khách hàng."
+  image="images/about/mission-1.png"
+  height="h-[380px] md:h-[440px] lg:h-[500px]"
+/>
 
-      {{-- Row 1: Ảnh trái / Card phải --}}
-      <div class="grid md:grid-cols-2 gap-6 items-center mb-6">
-        <div class="rounded-2xl bg-slate-50 p-4">
-          <img src="{{ asset('images/mission-1.jpg') }}" class="w-full h-72 object-cover rounded-xl" alt="mission-1">
-        </div>
-        <x-mission-card
-          icon="bolt"
-          title="Lựa chọn bền vững"
-          desc="Dễ dùng, tiết kiệm, bảo hiểm – bảo dưỡng đầy đủ; hậu mãi tận tâm giúp bạn an tâm dài lâu." />
-      </div>
+<x-mission-card
+  tone="green"
+  :reverse="true"
+  icon="images/about/icon-2.png"
+  title="Dịch vụ tận tâm"
+  desc="Tư vấn rõ ràng, giao xe nhanh, bảo hành minh bạch – trải nghiệm đồng nhất tại mọi cơ sở."
+  image="images/about/mission-2.png"
+  height="h-[380px] md:h-[440px] lg:h-[500px]"
+/>
 
-      {{-- Row 2: Card trái / Ảnh phải --}}
-      <div class="grid md:grid-cols-2 gap-6 items-center mb-6">
-        <x-mission-card
-          icon="users"
-          bg="bg-slate-50"
-          class="order-2 md:order-1"
-          title="Đa dạng cho mọi nhu cầu"
-          desc="Từ dòng học sinh đến cao cấp – luôn có giải pháp phù hợp về tính năng và chi phí." />
-        <div class="rounded-2xl bg-slate-50 p-4 order-1 md:order-2">
-          <img src="{{ asset('images/mission-2.jpg') }}" class="w-full h-72 object-cover rounded-xl" alt="mission-2">
-        </div>
-      </div>
+<x-mission-card
+  tone="gray"
+  icon="images/about/icon-3.png"
+  title="Đa dạng cho mọi nhu cầu"
+  desc="Từ xe máy điện nhỏ gọn cho thành thị đến mẫu cao cấp – VinFast SKYTT luôn có giải pháp phù hợp."
+  image="images/about/mission-3.png"
+  height="h-[380px] md:h-[440px] lg:h-[500px]"
+/>
 
-      {{-- Row 3: Ảnh trái / Card phải --}}
-      <div class="grid md:grid-cols-2 gap-6 items-center">
-        <div class="rounded-2xl bg-slate-50 p-4">
-          <img src="{{ asset('images/mission-3.jpg') }}" class="w-full h-72 object-cover rounded-xl" alt="mission-3">
-        </div>
-        <x-mission-card
-          icon="headset"
-          title="Hỗ trợ tận tâm"
-          desc="Bảo trì – hậu mãi nhanh chóng; đồng hành cùng bạn trong suốt quá trình sử dụng." />
-      </div>
-    </div>
-  </x-section>
+<x-mission-card
+  tone="green"
+  :reverse="true"
+  icon="images/about/icon-4.png"
+  title="Trải nghiệm liền mạch"
+  desc="Từ tìm hiểu sản phẩm, lái thử đến giao xe và hậu mãi – mọi bước diễn ra mạch lạc, thống nhất."
+  image="images/about/mission-4.png"
+  height="h-[380px] md:h-[440px] lg:h-[500px]"
+/>
 
-  {{-- TRẢI NGHIỆM LIỀN MẠCH --}}
-  <x-section id="exp" class="bg-white">
-    <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-6 items-center">
-      <div class="rounded-2xl overflow-hidden">
-        <img src="{{ asset('images/experience.jpg') }}" alt="Trải nghiệm" class="w-full h-80 object-cover">
-      </div>
-      <div class="rounded-2xl bg-slate-100 p-8">
-        <h3 class="text-xl font-semibold">Trải nghiệm liền mạch</h3>
-        <p class="mt-2 text-slate-600">
-          Quy trình lái thử – tư vấn – giao xe – bảo trì khép kín, nhanh chóng và minh bạch.
-        </p>
-      </div>
-    </div>
-  </x-section>
+
+  </div>
+</x-section>
+
+
+
+
 
   {{-- VỀ NHÂN VIÊN (tĩnh – có thể thay bằng slider sau) --}}
-  <x-section id="team" class="bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Về nhân viên</h2>
+  <section class="py-10">
+  <h2 class="font-lexend text-2xl md:text-3xl text-center mb-8">Về nhân viên</h2>
 
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        @foreach ([
-          ['images/staff-1.jpg','Nguyễn Tuấn Khoa','Chuyên viên tư vấn','0862 172 217','12B Nguyễn Thị Định, Thủ Đức'],
-          ['images/staff-2.jpg','Nguyễn Tuấn Khoa','Chăm sóc KH','0964 432 766','300A-B Nguyễn Tất Thành, Q4'],
-          ['images/staff-3.jpg','Nguyễn Tuấn Khoa','Kỹ thuật','0862 172 217','12B Nguyễn Thị Định, Thủ Đức'],
-          ['images/staff-4.jpg','Nguyễn Tuấn Khoa','Lái thử trải nghiệm','0964 432 766','300A-B Nguyễn Tất Thành, Q4'],
-        ] as $s)
-          <article class="rounded-2xl bg-white border border-slate-200 shadow-sm p-4">
-            <div class="flex items-center gap-3">
-              <img src="{{ asset($s[0]) }}" class="w-12 h-12 rounded-full object-cover" alt="{{ $s[1] }}">
-              <div>
-                <div class="text-xs text-slate-500">{{ $s[2] }}</div>
-                <div class="font-semibold">{{ $s[1] }}</div>
-              </div>
-            </div>
-            <div class="mt-3 text-sm">
-              <span class="text-slate-500">Hotline:</span>
-              <a href="tel:{{ preg_replace('/\s+/', '', $s[3]) }}" class="font-semibold hover:underline">{{ $s[3] }}</a>
-            </div>
-            <div class="mt-1 text-sm text-slate-600">{{ $s[4] }}</div>
-          </article>
-        @endforeach
-      </div>
-    </div>
-  </x-section>
+  <div class="max-w-[1100px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
+    <x-staff-card
+      name="Nguyễn Tuấn Khoa"
+      avatar="images/about/staff-1.png"
+      branch="Cửa hàng trưởng CN1 (Quận 2)"
+      address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+      hotline="0968 172 217"
+      experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+      :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+    />
+
+    <x-staff-card
+      name="Nguyễn Tuấn Khoa"
+      avatar="images/about/staff-2.png"
+      branch="Cửa hàng trưởng CN1 (Quận 2)"
+      address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+      hotline="0968 172 217"
+      experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+      :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+    />
+
+    <x-staff-card
+      name="Nguyễn Tuấn Khoa"
+      avatar="images/about/staff-3.png"
+      branch="Cửa hàng trưởng CN1 (Quận 2)"
+      address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+      hotline="0968 172 217"
+      experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+      :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+    />
+    
+    
+  </div>
+
+  {{-- optional tiny dots/pagination… --}}
+  <div class="mt-6 flex items-center justify-center gap-2">
+    <span class="w-2.5 h-2.5 rounded-full bg-[var(--skytt-btn)]/25"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-[var(--skytt-btn)]/25"></span>
+    <span class="w-2.5 h-2.5 rounded-full bg-[var(--skytt-btn)]/25"></span>
+  </div>
+</section>
+
 
 @endsection
