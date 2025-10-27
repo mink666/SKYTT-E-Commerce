@@ -38,26 +38,26 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-20 max-w-5xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-7xl mx-auto">
             @foreach ($bikes as $bike)
-                <div class="bg-gray-100 rounded-lg p-4 transition-all duration-300 hover:shadow-lg aspect-square flex flex-col">
+                <div class="bg-gray-100 rounded-2xl p-4 transition-all duration-300 hover:shadow-lg aspect-square flex flex-col">
 
                     <h3 class="text-lg font-semibold text-gray-900 ml-12 mb-2 mt-8">
                         {{ $bike->name }}
                     </h3>
 
-                    <p class="text-sm text-gray-500 mb-8 ml-12">
+                    <p class="text-sm text-gray-500 mb-20 ml-12">
                         {{ $bike->tagline ?? 'Lựa chọn cho bạn' }}
                     </p>
 
                     <a href="{{ route('product.show', $bike) }}">
                         <img src="{{ $bike->variants->first()->image_url ?? 'default-image.jpg' }}"
                              alt="{{ $bike->name }}"
-                             class="w-full h-70 object-contain mb-14"> </a>
+                             class="w-full h-86 object-cover mb-18"> </a>
 
                     <div class="flex justify-center space-x-2">
                         @foreach ($bike->variants as $variant)
-                            <span class="block w-5 h-5 rounded-full border-2 border-gray-300"
+                            <span class="block w-7 h-7 rounded-full border-2 border-gray-300"
                                   style="background-color: {{ $variant->color_name }};"
                                   title="{{ $variant->color_name }}">
                             </span>
