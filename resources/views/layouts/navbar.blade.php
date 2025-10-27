@@ -11,9 +11,9 @@
     {{-- Menu giữa --}}
     <ul class="hidden md:flex list-none gap-8 text-sm fw-semibold text-[var(--skytt-text)]">
       <li><a href="{{ route('about') }}" class="hover:opacity-70">Giới thiệu</a></li>
-      <li><a href="{{ route('product.index') }}"  class="hover:opacity-70">Sản phẩm</a></li>
+      <li><a href="{{ route('products.index') }}"  class="hover:opacity-70">Sản phẩm</a></li>
       <li><a href="{{ route('news.index') }}"   class="hover:opacity-70">Tin tức</a></li>
-      <li><a href="#khuyen-mai" class="hover:opacity-70">Khuyến mãi</a></li>
+      <li><a href="{{ route('promotions.index') }}" class="hover:opacity-70">Khuyến mãi</a></li>
       <li><a href="#phu-tung"  class="hover:opacity-70">Phụ tùng</a></li>
       <li><a href="{{ route('service') }}"   class="hover:opacity-70">Dịch vụ</a></li>
     </ul>
