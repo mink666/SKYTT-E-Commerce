@@ -15,8 +15,7 @@
     : 'bg-slate-50';
 @endphp
 
-<section class="rounded-[28px] shadow-[0_24px_60px_rgba(16,24,40,.08)] overflow-hidden">
-  <div class="grid lg:grid-cols-2 items-stretch">
+<section {{ $attributes->merge(['class' => 'rounded-[28px] shadow-[0_24px_60px_rgba(16,24,40,.08)] overflow-hidden']) }}>  <div class="grid lg:grid-cols-2 items-stretch">
 
     @if(!$reverse)
       {{-- TEXT first --}}

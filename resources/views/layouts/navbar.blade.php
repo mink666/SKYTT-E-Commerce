@@ -19,14 +19,13 @@
     </ul>
 
     {{-- CTA phải: Liên hệ (pill xanh) --}}
-    <a href="#lien-he" class="btn-pil">
-      Liên hệ
-      <span class="arrow-bubble">
-        {{-- mũi tên lên phải --}}
+    <a href="#" @click.prevent="isContactModalOpen = true" class="btn-pil">
+    Liên hệ
+    <span class="arrow-bubble">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M9 7h8v8"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M9 7h8v8"/>
         </svg>
-      </span>
+    </span>
     </a>
   </div>
 </nav>

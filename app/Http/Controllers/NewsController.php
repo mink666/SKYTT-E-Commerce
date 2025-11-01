@@ -12,21 +12,23 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
-        // 1. Get the single latest article for the hero section
-        $featuredNews = News::latest()->first();
+        // 1. Get the single latest 'news' article for the hero section
+        $featuredNews = News::where('type', 'news')->latest()->first();
 
-        // 2. Get the paginated list of articles for the grid
-        $query = News::query();
+        // 2. Get the paginated list of 'news' articles for the grid
+        //    IMPORTANT: We start the query by *only* looking for 'news'
+        $query = News::query()->where('type', 'news');
 
-        // --- Handle Search ---
+        // --- Handle Search (exactly like promotions) ---
         if ($request->filled('search')) {
             $query->where('title', 'LIKE', '%' . $request->input('search') . '%');
         }
 
-        // --- Handle Filtering (if you add a 'category' column) ---
-        // if ($request->filled('category') && $request->input('category') != 'ALL') {
-        //     $query->where('category', $request->input('category'));
-        // }
+        // --- Handle Filtering (exactly like promotions) ---
+        if ($request->filled('category') && $request->input('category') != 'ALL') {
+            // This is a simple text search on the title
+            $query->where('title', 'LIKE', '%' . $request->input('category') . '%');
+        }
 
         // Get 6 articles per page (for your 3-per-row layout)
         $newsList = $query->latest()->paginate(6);
