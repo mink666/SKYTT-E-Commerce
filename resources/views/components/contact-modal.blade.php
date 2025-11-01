@@ -9,7 +9,6 @@
     x-transition:leave-end="opacity-0"
     class="fixed inset-0 z-50 flex items-center justify-center p-4"
 >
-    <!-- Overlay (dim background) -->
     <div
         @click="isContactModalOpen = false"
         class="fixed inset-0 bg-black/40 z-40">

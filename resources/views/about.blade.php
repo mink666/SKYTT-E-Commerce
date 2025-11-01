@@ -4,12 +4,12 @@
 @section('content')
 
 {{-- HERO GIỚI THIỆU (full-screen, text trái – ảnh phải) --}}
-<section id="about-hero" class="relative h-[calc(100vh-56px)] pt-14 bg-slate-50">
+<section id="about-hero" class="relative h-[calc(100vh-56px)] pt-14 bg-slate-50" >
   <div class="h-full w-screen relative left-1/2 -translate-x-1/2">
     <div class="mx-auto max-w-[1500px] h-full px-6 lg:px-10 grid lg:grid-cols-2 gap-6">
 
       {{-- TEXT LEFT (đẩy lên trên) --}}
-      <div class="self-start pt-10 lg:pt-20 xl:pt-36 space-y-4 lg:pl-6 xl:pl-10">
+      <div class="self-start pt-10 lg:pt-20 xl:pt-36 space-y-4 lg:pl-6 xl:pl-10" data-aos="fade-right">
         <p>Giới thiệu về</p>
         <h1 class="font-lexend text-3xl md:text-5xl xl:text-6xl font-semibold leading-tight">
           Công ty VinFast SKYTT
@@ -25,7 +25,7 @@
       </div>
 
       {{-- IMAGE RIGHT (ngang với tiêu đề, phóng to) --}}
-      <div class="relative self-start pt-10 lg:pt-20 xl:pt-24 flex justify-end pr-2 lg:pr-6 overflow-visible">
+      <div class="relative self-start pt-10 lg:pt-20 xl:pt-24 flex justify-end pr-2 lg:pr-6 overflow-visible" data-aos="fade-left">
         <img src="{{ asset('images/about/hero.png') }}" alt="VinFast About Hero"
     class="object-contain max-h-[85vh] w-[95%] lg:w-[95%]
        lg:scale-[1.55] xl:scale-[1.65]
@@ -41,10 +41,10 @@
 
 
   {{-- DẤU CHÂN TOÀN CẦU --}}
-<section id="global-footprint">
+<section id="global-footprint" >
 
   {{-- Header (nền trắng, canh giữa) --}}
-  <div class="bg-white">
+  <div class="bg-white" data-aos="fade-up">
     <div class="max-w-[900px] mx-auto px-6 py-12 text-center">
       <h2 class="font-lexend font-semibold text-3xl md:text-4xl leading-tight">Dấu chân toàn cầu</h2>
       <p class="mt-3 text-slate-600 tracking-[-0.03em]">
@@ -55,17 +55,17 @@
   </div>
 
   {{-- Vùng nội dung (nền xám nhạt) --}}
-  <div class="bg-slate-50">
+  <div class="bg-slate-50" data-aos="fade-up">
     <div class="w-screen relative left-1/2 -translate-x-1/2">
       <div class="mx-auto max-w-[1200px] grid lg:grid-cols-2 items-center gap-12 px-6 py-14">
 
        {{-- LEFT: image card (ôm sát, không màu nền, bo góc 29, đổ bóng như mẫu) --}}
-<div class="w-full max-w-[620px] mx-auto">                        
-       
+<div class="w-full max-w-[620px] mx-auto">
+
     <img
       src="{{ asset('images/about/values.png') }}"
       alt="Giá trị"
-      class="block w-full h-auto select-none pointer-events-none" 
+      class="block w-full h-auto select-none pointer-events-none"
       loading="lazy" decoding="async"
     >
 </div>
@@ -107,57 +107,83 @@
 </section>
 
 
- {{-- MISSION — theo container trang Home, không full screen --}}
+ {{-- MISSION — Hiệu ứng xếp chồng (Sticky Stacking) với FADE --}}
 <x-section id="su-menh" class="bg-white !px-0">
-  <div class="max-w-[1200px] mx-auto px-4 md:px-6 space-y-8">
-<x-mission-card
-  tone="gray"
-  icon="images/about/icon-1.png"
-  title="Lựa chọn bền vững"
-  desc="Gồm hỗ trợ đăng ký biển số, bảo hiểm, bảo dưỡng và hậu mãi – tạo sự an tâm bền lâu cho khách hàng."
-  image="images/about/mission-1.png"
-  height="h-[380px] md:h-[440px] lg:h-[500px]"
-/>
 
-<x-mission-card
-  tone="green"
-  :reverse="true"
-  icon="images/about/icon-2.png"
-  title="Dịch vụ tận tâm"
-  desc="Tư vấn rõ ràng, giao xe nhanh, bảo hành minh bạch – trải nghiệm đồng nhất tại mọi cơ sở."
-  image="images/about/mission-2.png"
-  height="h-[380px] md:h-[440px] lg:h-[500px]"
-/>
+  {{--
+    1. Khai báo Alpine 'x-data'.
+       'activeCard' sẽ lưu ID của card đang ở trên cùng (mặc định là 1).
+  --}}
+  <div
+    x-data="{ activeCard: 1 }"
+    class="max-w-[1200px] mx-auto px-4 md:px-6 pb-[25vh]" {{-- Giảm padding-bottom như yêu cầu trước --}}
+  >
 
-<x-mission-card
-  tone="gray"
-  icon="images/about/icon-3.png"
-  title="Đa dạng cho mọi nhu cầu"
-  desc="Từ xe máy điện nhỏ gọn cho thành thị đến mẫu cao cấp – VinFast SKYTT luôn có giải pháp phù hợp."
-  image="images/about/mission-3.png"
-  height="h-[380px] md:h-[440px] lg:h-[500px]"
-/>
+    {{--
+      2. Thêm 'x-intersect' để đặt activeCard = 1.
+      3. Thêm ':class' để kiểm tra: nếu activeCard > 1 (ví dụ: Card 2 đang active),
+         thì card này (Card 1) sẽ nhận class 'opacity-50'.
+      4. Thêm 'transition-opacity' để tạo hiệu ứng mờ "nhẹ".
+    --}}
+    <x-mission-card
+      x-intersect:enter.half="activeCard = 1"
+      :class="{ 'opacity-50': activeCard > 1 }"
+      class="sticky top-16 z-10 transition-opacity duration-300 ease-in-out"
+      tone="gray"
+      icon="images/about/icon-1.png"
+      title="Lựa chọn bền vững"
+      desc="Gồm hỗ trợ đăng ký biển số, bảo hiểm, bảo dưỡng và hậu mãi – tạo sự an tâm bền lâu cho khách hàng."
+      image="images/about/mission-1.png"
+      height="h-[380px] md:h-[440px] lg:h-[500px]"
+    />
 
-<x-mission-card
-  tone="green"
-  :reverse="true"
-  icon="images/about/icon-4.png"
-  title="Trải nghiệm liền mạch"
-  desc="Từ tìm hiểu sản phẩm, lái thử đến giao xe và hậu mãi – mọi bước diễn ra mạch lạc, thống nhất."
-  image="images/about/mission-4.png"
-  height="h-[380px] md:h-[440px] lg:h-[500px]"
-/>
+    {{-- Card 2 --}}
+    <x-mission-card
+      x-intersect:enter.half="activeCard = 2"
+      :class="{ 'opacity-50': activeCard > 2 }"
+      class="sticky top-20 z-20 transition-opacity duration-300 ease-in-out"
+      tone="green"
+      :reverse="true"
+      icon="images/about/icon-2.png"
+      title="Dịch vụ tận tâm"
+      desc="Tư vấn rõ ràng, giao xe nhanh, bảo hành minh bạch – trải nghiệm đồng nhất tại mọi cơ sở."
+      image="images/about/mission-2.png"
+      height="h-[380px] md:h-[440px] lg:h-[500px]"
+    />
 
+    {{-- Card 3 --}}
+    <x-mission-card
+      x-intersect:enter.half="activeCard = 3"
+      :class="{ 'opacity-50': activeCard > 3 }"
+      class="sticky top-24 z-30 transition-opacity duration-300 ease-in-out"
+      tone="gray"
+      icon="images/about/icon-3.png"
+      title="Đa dạng cho mọi nhu cầu"
+      desc="Từ xe máy điện nhỏ gọn cho thành thị đến mẫu cao cấp – VinFast SKYTT luôn có giải pháp phù hợp."
+      image="images/about/mission-3.png"
+      height="h-[380px] md:h-[440px] lg:h-[500px]"
+    />
+
+    {{-- Card 4 (Không cần :class vì nó là card cuối cùng) --}}
+    <x-mission-card
+      x-intersect:enter.half="activeCard = 4"
+      class="sticky top-28 z-40 transition-opacity duration-300 ease-in-out"
+      tone="green"
+      :reverse="true"
+      icon="images/about/icon-4.png"
+      title="Trải nghiệm liền mạch"
+      desc="Từ tìm hiểu sản phẩm, lái thử đến giao xe và hậu mãi – mọi bước diễn ra mạch lạc, thống nhất."
+      image="images/about/mission-4.png"
+      height="h-[380px] md:h-[440px] lg:h-[500px]"
+    />
 
   </div>
 </x-section>
 
 
 
-
-
   {{-- VỀ NHÂN VIÊN (tĩnh – có thể thay bằng slider sau) --}}
-  <section class="py-10">
+  <section class="py-10" data-aos="fade-up">
   <h2 class="font-lexend text-2xl md:text-3xl text-center mb-8">Về nhân viên</h2>
 
   <div class="max-w-[1100px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
@@ -190,8 +216,8 @@
       experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
       :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
     />
-    
-    
+
+
   </div>
 
   {{-- optional tiny dots/pagination… --}}

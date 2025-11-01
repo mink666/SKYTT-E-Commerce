@@ -1,3 +1,5 @@
+// Thêm vào đầu file home.js hoặc app.js
+AOS.init();
 document.addEventListener('DOMContentLoaded', () => { // init khi DOM sẵn
   const root = document.querySelector('[data-hero]'); if (!root) return; // chọn hero
   const track = root.querySelector('[data-hero-track]');                 // dải slide
