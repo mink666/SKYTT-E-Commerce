@@ -28,7 +28,7 @@
         <div class="w-full md:w-1/2 h-full">
             <img src="{{ asset($featuredNews->image_url ?? '/images/default-hero.jpg') }}"
                  alt="{{ $featuredNews->title ?? 'News' }}"
-                 class="w-full h-full object-fill block">
+                 class="w-full h-full object-cover block">
         </div>
     </div>
 </div>
@@ -69,7 +69,7 @@
                 <a href="{{ route('news.show', $news) }}" class="block h-3/5 align-bottom">
                     <img src="{{ asset($news->image_url ?? 'images/default-news.jpg') }}"
                          alt="{{ $news->title }}"
-                         class="w-full h-full object-cover"> 
+                         class="w-full h-full object-cover">
                 </a>
 
                 <div class="p-5 flex flex-col flex-1">
