@@ -5,9 +5,11 @@
 @section('content')
     <div class="container mx-auto px-4 py-12">
 
-        <h1 class="text-4xl font-bold text-center mb-12">Khuyến mãi</h1>
+        {{-- Thêm AOS cho Tiêu đề --}}
+        <h1 class="text-4xl font-bold text-center mb-12" data-aos="fade-up">Khuyến mãi</h1>
 
-        <div class="max-w-7xl mx-auto mb-8">
+        {{-- Thêm AOS cho thanh Lọc/Tìm kiếm --}}
+        <div class="max-w-7xl mx-auto mb-8" data-aos="fade-up">
             <div class="flex flex-col md:flex-row items-center justify-between">
 
                 <div class="flex items-center space-x-2">
@@ -36,7 +38,16 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
 
             @forelse ($promotions as $promo)
-                <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[400px]">
+                {{--
+                  === THÊM HIỆU ỨNG VÀO DÒNG DƯỚI ĐÂY ===
+                  - data-aos="fade-up"
+                  - data-aos-delay (so le 3 cột)
+                --}}
+                <div
+                  class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[400px]"
+                  data-aos="fade-up"
+                  data-aos-delay="{{ ($loop->index % 3) * 100 }}"
+                >
 
                     <a href="{{ route('news.show', $promo) }}" class="block h-3/5 align-bottom">
                         <img src="{{ asset($promo->image_url ?? 'images/default-news.jpg') }}"
@@ -52,7 +63,7 @@
                         </a>
 
                         <div class="mt-auto flex items-center">
-                            <a href="{{ route('news.show', $promo) }}" class="inline-block bg-[#3D5A17] bg-opacity-10 text-white     py-1 px-3 rounded-full text-sm font-medium hover:bg-opacity-20 mr-auto">
+                            <a href="{{ route('news.show', $promo) }}" class="inline-block bg-[#3D5A17] bg-opacity-10 text-white    py-1 px-3 rounded-full text-sm font-medium hover:bg-opacity-20 mr-auto">
                                 Xem chi tiết
                             </a>
                             <p class="text-sm text-gray-500">
@@ -71,62 +82,66 @@
             {{ $promotions->links('pagination.custom') }}
         </div>
 
-<div class="w-full bg-gray-100 py-12 px-4 md:px-8 max-w-5xl mx-auto mt-12 rounded-[25px]">
-    <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="bg-white rounded-[25px] shadow-xl p-8 lg:p-12">
-            <h3 class="text-3xl font-semibold text-gray-900 mb-8">Liên hệ tư vấn</h3>
-            <p class="text-gray-600 mb-10">
-                Cần tư vấn về xe? Chúng tôi ở đây để hỗ trợ.
-                Hãy để lại email và số điện thoại, chúng tôi sẽ liên hệ ngay trong 24 giờ.
-            </p>
+        {{-- Thêm AOS cho khối Liên hệ tư vấn --}}
+        <div
+          class="w-full bg-gray-100 py-12 px-4 md:px-8 max-w-5xl mx-auto mt-12 rounded-[25px]"
+          data-aos="fade-up"
+        >
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-[25px] shadow-xl p-8 lg:p-12">
+                    <h3 class="text-3xl font-semibold text-gray-900 mb-8">Liên hệ tư vấn</h3>
+                    <p class="text-gray-600 mb-10">
+                        Cần tư vấn về xe? Chúng tôi ở đây để hỗ trợ.
+                        Hãy để lại email và số điện thoại, chúng tôi sẽ liên hệ ngay trong 24 giờ.
+                    </p>
 
-            <hr class="mb-8 border-gray-200">
+                    <hr class="mb-8 border-gray-200">
 
-            <form action="#" method="POST" class="space-y-5">
-                @csrf
+                    <form action="#" method="POST" class="space-y-5">
+                        @csrf
 
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-3">Họ và tên</label>
-                    <input type="text" name="name" id="name" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Họ và tên">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-3">Họ và tên</label>
+                            <input type="text" name="name" id="name" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Họ và tên">
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-3">Địa chỉ email</label>
+                            <input type="email" name="email" id="email" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Địa chỉ email">
+                        </div>
+
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-3">Số điện thoại liên hệ</label>
+                            <input type="tel" name="phone" id="phone" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Số điện thoại liên hệ">
+                        </div>
+
+                        <div>
+                            <button type="submit" class="w-auto bg-[#3D5A17] text-white py-2 px-8 rounded-lg font-semibold hover:bg-opacity-90 transition-colors mt-6">
+                                Xác nhận
+                            </button>
+                        </div>
+                    </form>
                 </div>
 
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-3">Địa chỉ email</label>
-                    <input type="email" name="email" id="email" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Địa chỉ email">
+                <div class="flex flex-col gap-8">
+
+                    <img src="{{ asset('images/service-form.png') }}"
+                         alt="VinFast Service"
+                         class="w-full h-auto object-contain rounded-[25px]">
+                    <div class="bg-white rounded-[25px] shadow-xl p-8">
+                        <h4 class="font-semibold text-gray-900">VinFast SKYTT 1</h4>
+                        <p class="text-sm text-gray-600">12B Nguyễn Thị Định, P.Bình Trưng, Tp.Hồ Chí Minh (Quận 2)</p>
+                        <p class="text-sm text-gray-600">Hotline: 0862.172.217</p>
+
+                        <h4 class="font-semibold text-gray-900 mt-4">VinFast SKYTT 2</h4>
+                        <p class="text-sm text-gray-600">300A-B Nguyễn Tất Thành, P.Xóm Chiếu, Tp.Hồ Chí Minh (Quận 4)</p>
+                        <p class="text-sm text-gray-600">Hotline: 096.4432.766</p>
+                    </div>
+
                 </div>
 
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-3">Số điện thoại liên hệ</label>
-                    <input type="tel" name="phone" id="phone" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Số điện thoại liên hệ">
-                </div>
-
-                <div>
-                    <button type="submit" class="w-auto bg-[#3D5A17] text-white py-2 px-8 rounded-lg font-semibold hover:bg-opacity-90 transition-colors mt-6">
-                        Xác nhận
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="flex flex-col gap-8">
-
-                <img src="{{ asset('images/service-form.png') }}"
-                     alt="VinFast Service"
-                     class="w-full h-auto object-contain rounded-[25px]">
-            <div class="bg-white rounded-[25px] shadow-xl p-8">
-                <h4 class="font-semibold text-gray-900">VinFast SKYTT 1</h4>
-                <p class="text-sm text-gray-600">12B Nguyễn Thị Định, P.Bình Trưng, Tp.Hồ Chí Minh (Quận 2)</p>
-                <p class="text-sm text-gray-600">Hotline: 0862.172.217</p>
-
-                <h4 class="font-semibold text-gray-900 mt-4">VinFast SKYTT 2</h4>
-                <p class="text-sm text-gray-600">300A-B Nguyễn Tất Thành, P.Xóm Chiếu, Tp.Hồ Chí Minh (Quận 4)</p>
-                <p class="text-sm text-gray-600">Hotline: 096.4432.766</p>
             </div>
-
         </div>
-
-    </div>
-</div>
 
     </div>
 @endsection
