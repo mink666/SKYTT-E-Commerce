@@ -3,10 +3,12 @@
 @section('title', 'News')
 
 @section('content')
+    {{-- Hero Section --}}
     <div class="w-full bg-[#DBE0D3] h-130">
     <div class="mx-auto flex flex-col md:flex-row items-center h-full">
 
-        <div class="w-full md:w-1/2 p-8 lg:p-16">
+        {{-- Hero Text --}}
+        <div class="w-full md:w-1/2 p-8 lg:p-16" data-aos="fade-right">
             <h2 class="text-4xl font-bold text-gray-800 mb-4">RECENT NEWS</h2>
 
             @if ($featuredNews)
@@ -25,7 +27,8 @@
             @endif
         </div>
 
-        <div class="w-full md:w-1/2 h-full">
+        {{-- Hero Image --}}
+        <div class="w-full md:w-1/2 h-full" data-aos="fade-left">
             <img src="{{ asset($featuredNews->image_url ?? '/images/default-hero.jpg') }}"
                  alt="{{ $featuredNews->title ?? 'News' }}"
                  class="w-full h-full object-cover block">
@@ -35,7 +38,8 @@
 
     <div class="container mx-auto px-4 py-12">
 
-        <div class="max-w-6xl mx-auto mb-8">
+        {{-- Filter/Search Section --}}
+        <div class="max-w-6xl mx-auto mb-8" data-aos="fade-up">
             <div class="flex flex-col md:flex-row items-center justify-between">
 
                 <div class="flex items-center space-x-2">
@@ -61,10 +65,15 @@
             </div>
         </div>
 
+        {{-- News Card Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
         @forelse ($newsList as $news)
-            <div class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[370px]">
+            <div
+              class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[370px]"
+              data-aos="fade-up"
+              data-aos-delay="{{ ($loop->index % 3) * 100 }}"
+            >
 
                 <a href="{{ route('news.show', $news) }}" class="block h-3/5 align-bottom">
                     <img src="{{ asset($news->image_url ?? 'images/default-news.jpg') }}"
