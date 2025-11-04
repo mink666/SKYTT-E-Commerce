@@ -108,125 +108,197 @@
 
 
  {{-- MISSION — Hiệu ứng xếp chồng (Sticky Stacking) với FADE --}}
-<x-section id="su-menh" class="bg-white !px-0">
+<x-section id="su-menh" class="bg-white !px-0" data-aos="fade-up" >
 
-  {{--
-    1. Khai báo Alpine 'x-data'.
-       'activeCard' sẽ lưu ID của card đang ở trên cùng (mặc định là 1).
-  --}}
-  <div
-    x-data="{ activeCard: 1 }"
-    class="max-w-[1200px] mx-auto px-4 md:px-6 pb-[25vh]" {{-- Giảm padding-bottom như yêu cầu trước --}}
-  >
+    {{-- 1. Khai báo Alpine 'x-data'. --}}
+    <div
+        x-data="{ activeCard: 1 }"
+        class="max-w-[1200px] mx-auto px-4 md:px-6 pb-[5vh]" {{-- Giữ nguyên padding-bottom 15vh --}}
+    >
 
-    {{--
-      2. Thêm 'x-intersect' để đặt activeCard = 1.
-      3. Thêm ':class' để kiểm tra: nếu activeCard > 1 (ví dụ: Card 2 đang active),
-         thì card này (Card 1) sẽ nhận class 'opacity-50'.
-      4. Thêm 'transition-opacity' để tạo hiệu ứng mờ "nhẹ".
-    --}}
-    <x-mission-card
-      x-intersect:enter.half="activeCard = 1"
-      :class="{ 'opacity-50': activeCard > 1 }"
-      class="sticky top-16 z-10 transition-opacity duration-300 ease-in-out"
-      tone="gray"
-      icon="images/about/icon-1.png"
-      title="Lựa chọn bền vững"
-      desc="Gồm hỗ trợ đăng ký biển số, bảo hiểm, bảo dưỡng và hậu mãi – tạo sự an tâm bền lâu cho khách hàng."
-      image="images/about/mission-1.png"
-      height="h-[380px] md:h-[440px] lg:h-[500px]"
-    />
+        {{--
+            === THAY ĐỔI ===
+            Tất cả các card bây giờ đều dùng 'sticky top-24'
+            để căn thẳng hàng ở cùng một vị trí.
+        --}}
+        <x-mission-card
+            x-intersect:enter.half="activeCard = 1"
+            :class="{ 'opacity-50': activeCard > 1 }"
+            class="sticky top-50 z-10 transition-opacity duration-300 ease-in-out" {{-- Đổi từ top-16 --}}
+            tone="gray"
+            icon="images/about/icon-1.png"
+            title="Lựa chọn bền vững"
+            desc="Gồm hỗ trợ đăng ký biển số, bảo hiểm, bảo dưỡng và hậu mãi – tạo sự an tâm bền lâu cho khách hàng."
+            image="images/about/mission-1.png"
+            height="h-[380px] md:h-[440px] lg:h-[500px]"
+        />
 
-    {{-- Card 2 --}}
-    <x-mission-card
-      x-intersect:enter.half="activeCard = 2"
-      :class="{ 'opacity-50': activeCard > 2 }"
-      class="sticky top-20 z-20 transition-opacity duration-300 ease-in-out"
-      tone="green"
-      :reverse="true"
-      icon="images/about/icon-2.png"
-      title="Dịch vụ tận tâm"
-      desc="Tư vấn rõ ràng, giao xe nhanh, bảo hành minh bạch – trải nghiệm đồng nhất tại mọi cơ sở."
-      image="images/about/mission-2.png"
-      height="h-[380px] md:h-[440px] lg:h-[500px]"
-    />
+        {{-- Card 2 --}}
+        <x-mission-card
+            x-intersect:enter.half="activeCard = 2"
+            :class="{ 'opacity-50': activeCard > 2 }"
+            class="sticky top-50 z-20 transition-opacity duration-300 ease-in-out" {{-- Đổi từ top-20 --}}
+            tone="green"
+            :reverse="true"
+            icon="images/about/icon-2.png"
+            title="Dịch vụ tận tâm"
+            desc="Tư vấn rõ ràng, giao xe nhanh, bảo hành minh bạch – trải nghiệm đồng nhất tại mọi cơ sở."
+            image="images/about/mission-2.png"
+            height="h-[380px] md:h-[440px] lg:h-[500px]"
+        />
 
-    {{-- Card 3 --}}
-    <x-mission-card
-      x-intersect:enter.half="activeCard = 3"
-      :class="{ 'opacity-50': activeCard > 3 }"
-      class="sticky top-24 z-30 transition-opacity duration-300 ease-in-out"
-      tone="gray"
-      icon="images/about/icon-3.png"
-      title="Đa dạng cho mọi nhu cầu"
-      desc="Từ xe máy điện nhỏ gọn cho thành thị đến mẫu cao cấp – VinFast SKYTT luôn có giải pháp phù hợp."
-      image="images/about/mission-3.png"
-      height="h-[380px] md:h-[440px] lg:h-[500px]"
-    />
+        {{-- Card 3 --}}
+        <x-mission-card
+            x-intersect:enter.half="activeCard = 3"
+            :class="{ 'opacity-50': activeCard > 3 }"
+            class="sticky top-50 z-30 transition-opacity duration-300 ease-in-out" {{-- Giữ nguyên top-24 --}}
+            tone="gray"
+            icon="images/about/icon-3.png"
+            title="Đa dạng cho mọi nhu cầu"
+            desc="Từ xe máy điện nhỏ gọn cho thành thị đến mẫu cao cấp – VinFast SKYTT luôn có giải pháp phù hợp."
+            image="images/about/mission-3.png"
+            height="h-[380px] md:h-[440px] lg:h-[500px]"
+        />
 
-    {{-- Card 4 (Không cần :class vì nó là card cuối cùng) --}}
-    <x-mission-card
-      x-intersect:enter.half="activeCard = 4"
-      class="sticky top-28 z-40 transition-opacity duration-300 ease-in-out"
-      tone="green"
-      :reverse="true"
-      icon="images/about/icon-4.png"
-      title="Trải nghiệm liền mạch"
-      desc="Từ tìm hiểu sản phẩm, lái thử đến giao xe và hậu mãi – mọi bước diễn ra mạch lạc, thống nhất."
-      image="images/about/mission-4.png"
-      height="h-[380px] md:h-[440px] lg:h-[500px]"
-    />
+        {{-- Card 4 --}}
+        <x-mission-card
+            x-intersect:enter.half="activeCard = 4"
+            class="sticky top-50 z-40 transition-opacity duration-300 ease-in-out" {{-- Đổi từ top-28 --}}
+            tone="green"
+            :reverse="true"
+            icon="images/about/icon-4.png"
+            title="Trải nghiệm liền mạch"
+            desc="Từ tìm hiểu sản phẩm, lái thử đến giao xe và hậu mãi – mọi bước diễn ra mạch lạc, thống nhất."
+            image="images/about/mission-4.png"
+            height="h-[380px] md:h-[440px] lg:h-[500px]"
+        />
 
-  </div>
+    </div>
 </x-section>
 
 
+{{-- VỀ NHÂN VIÊN (ĐÃ CHUYỂN THÀNH CAROUSEL) --}}
+<section class="py-10" data-aos="fade-up">
+    <h2 class="font-lexend text-2xl md:text-3xl text-center mb-8">Về nhân viên</h2>
 
-  {{-- VỀ NHÂN VIÊN (tĩnh – có thể thay bằng slider sau) --}}
-  <section class="py-10" data-aos="fade-up">
-  <h2 class="font-lexend text-2xl md:text-3xl text-center mb-8">Về nhân viên</h2>
+    {{-- BẮT ĐẦU CAROUSEL (Tái sử dụng home.js) --}}
+    <div class="relative max-w-[1100px] mx-auto" data-carousel>
 
-  <div class="max-w-[1100px] mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6 place-items-center">
-    <x-staff-card
-      name="Nguyễn Tuấn Khoa"
-      avatar="images/about/staff-1.png"
-      branch="Cửa hàng trưởng CN1 (Quận 2)"
-      address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
-      hotline="0968 172 217"
-      experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
-      :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
-    />
+        {{-- 1. Track chứa các item --}}
+        <div class="overflow-hidden">
+            <div class="flex transition-transform duration-500 ease-out" data-carousel-track>
 
-    <x-staff-card
-      name="Nguyễn Tuấn Khoa"
-      avatar="images/about/staff-2.png"
-      branch="Cửa hàng trưởng CN1 (Quận 2)"
-      address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
-      hotline="0968 172 217"
-      experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
-      :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
-    />
+                {{-- Item 1 --}}
+                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                    <x-staff-card
+                        name="Nguyễn Tuấn Khoa"
+                        avatar="images/about/staff-1.png"
+                        branch="Cửa hàng trưởng CN1 (Quận 2)"
+                        address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+                        hotline="0968 172 217"
+                        experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+                        :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+                    />
+                </div>
 
-    <x-staff-card
-      name="Nguyễn Tuấn Khoa"
-      avatar="images/about/staff-3.png"
-      branch="Cửa hàng trưởng CN1 (Quận 2)"
-      address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
-      hotline="0968 172 217"
-      experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
-      :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
-    />
+                {{-- Item 2 --}}
+                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                    <x-staff-card
+                        name="Nguyễn Tuấn Khoa"
+                        avatar="images/about/staff-2.png"
+                        branch="Cửa hàng trưởng CN1 (Quận 2)"
+                        address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+                        hotline="0968 172 217"
+                        experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+                        :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+                    />
+                </div>
 
+                {{-- Item 3 --}}
+                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                    <x-staff-card
+                        name="Nguyễn Tuấn Khoa"
+                        avatar="images/about/staff-3.png"
+                        branch="Cửa hàng trưởng CN1 (Quận 2)"
+                        address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+                        hotline="0968 172 217"
+                        experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+                        :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+                    />
+                </div>
+{{-- Item 1 --}}
+                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                    <x-staff-card
+                        name="Nguyễn Tuấn Khoa"
+                        avatar="images/about/staff-1.png"
+                        branch="Cửa hàng trưởng CN1 (Quận 2)"
+                        address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+                        hotline="0968 172 217"
+                        experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+                        :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+                    />
+                </div>
 
-  </div>
+                {{-- Item 2 --}}
+                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                    <x-staff-card
+                        name="Nguyễn Tuấn Khoa"
+                        avatar="images/about/staff-2.png"
+                        branch="Cửa hàng trưởng CN1 (Quận 2)"
+                        address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+                        hotline="0968 172 217"
+                        experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+                        :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+                    />
+                </div>
 
-  {{-- optional tiny dots/pagination… --}}
-  <div class="mt-6 flex items-center justify-center gap-2">
-    <span class="w-2.5 h-2.5 rounded-full bg-[var(--skytt-btn)]/25"></span>
-    <span class="w-2.5 h-2.5 rounded-full bg-[var(--skytt-btn)]/25"></span>
-    <span class="w-2.5 h-2.5 rounded-full bg-[var(--skytt-btn)]/25"></span>
-  </div>
+                {{-- Item 3 --}}
+                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                    <x-staff-card
+                        name="Nguyễn Tuấn Khoa"
+                        avatar="images/about/staff-3.png"
+                        branch="Cửa hàng trưởng CN1 (Quận 2)"
+                        address="Chi nhánh: 128 Nguyễn Thị Định, P. Bình Trưng, TP. Thủ Đức"
+                        hotline="0968 172 217"
+                        experience="Kinh nghiệm: 7+ năm bán lẻ xe/ đồ điện tử, 3 năm quản lý cửa hàng"
+                        :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
+                    />
+                </div>
+
+                {{-- Bạn có thể thêm Item 4, 5, 6... ở đây nếu muốn --}}
+
+            </div>
+        </div>
+
+        {{-- 2. Navigation (THAY THẾ CHO CÁC DOTS TĨNH CŨ) --}}
+        <div class="mt-8 flex items-center justify-center gap-4">
+            {{-- Nút Prev --}}
+            <button type="button" aria-label="Previous"
+                class="grid place-items-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500"
+                data-carousel-prev>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"/></svg>
+            </button>
+
+            {{-- Chỗ chứa Dots (JS sẽ tự điền vào) --}}
+            <div class="flex items-center justify-center gap-2" data-carousel-dots>
+            </div>
+
+            {{-- Nút Next --}}
+            <button type="button" aria-label="Next"
+                class="grid place-items-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500"
+                data-carousel-next>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6"><path fill="currentColor" d="M8.59 16.59L13.17 12L8.59 7.41L10 6l6 6l-6 6z"/></svg>
+            </button>
+        </div>
+
+    </div>
+    {{-- KẾT THÚC CAROUSEL --}}
+
 </section>
 
 
 @endsection
+
+@push('scripts')
+    @vite('resources/js/home.js')
+@endpush

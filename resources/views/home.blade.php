@@ -70,8 +70,7 @@
       ['label'=>'Cốp','value'=>'24 lít'],
     ]"
     link="#theon-s"
-    :reverse="false"
-    data-aos="fade-right"                                 {{-- text trái / ảnh phải --}}
+    :reverse="false"                               {{-- text trái / ảnh phải --}}
   />
 
   {{-- 2) Evo Lite Neo (đảo layout) --}}
@@ -86,8 +85,7 @@
       ['label'=>'Cốp','value'=>'17 lít'],
     ]"
     link="#evo-lite-neo"
-    :reverse="true"
-    data-aos="fade-left"                                  {{-- ảnh trái / text phải --}}
+    :reverse="true"                                  {{-- ảnh trái / text phải --}}
   />
 
   {{-- 3) EvoGrand --}}
@@ -103,7 +101,7 @@
     ]"
     link="#evogrand"
     :reverse="false"
-     data-aos="fade-right"
+    
   />
 </section>
 
