@@ -7,27 +7,34 @@
     <div class="container mx-auto px-4 py-12">
         <div class="flex flex-col lg:flex-row gap-12">
 
+            {{-- Main Content Column --}}
             <main class="w-full lg:w-2/3">
-                <div class="mb-6">
+
+                {{-- Title --}}
+                <div class="mb-6" data-aos="fade-up">
                     <h1 class="text-4xl font-bold text-gray-900 mb-3">{{ $news->title }}</h1>
                     <p class="text-gray-500 text-sm">
                         Published on {{ \Carbon\Carbon::parse($news->publish_date)->format('F j, Y') }}
                     </p>
                 </div>
 
-                <div class="mb-8">
+                {{-- Featured Image --}}
+                <div class="mb-8" data-aos="fade-up" data-aos-delay="100">
                     <img src="{{ asset($news->image_url) ?? '/images/default-news.jpg' }}"
                          alt="{{ $news->title }}"
                          class="w-full h-auto max-h-[500px] object-cover rounded-lg shadow-lg">
                 </div>
 
-                <article class="prose prose-lg max-w-none">
+                {{-- Article Content --}}
+                <article class="prose prose-lg max-w-none" data-aos="fade-up" data-aos-delay="200">
                     {!! $news->content !!}
                 </article>
 
             </main>
 
-            <aside class="w-full lg:w-1/3">
+            {{-- Sidebar Column --}}
+            {{-- This whole sidebar will fade-up as one block --}}
+            <aside class="w-full lg:w-1/3" data-aos="fade-up" data-aos-delay="300">
                 <div class="sticky top-24 bg-gray-50 p-6 rounded-lg shadow-md">
                     <h3 class="text-xl font-semibold text-gray-900 border-b pb-3 mb-4">
                         Recent News

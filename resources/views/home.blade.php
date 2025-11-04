@@ -4,7 +4,7 @@
 @section('content')
 
  {{-- Hero (fullscreen slider) --}}
-<section id="hero" class="relative h-[calc(100vh-56px)] pt-14"> {{-- 56px ~ h-14 của navbar --}}
+<section id="hero" class="relative h-[calc(100vh-56px)] pt-14" data-aos="fade-up"   > {{-- 56px ~ h-14 của navbar --}}
   @php
     // Có thể thêm nhiều ảnh nữa ở đây nếu muốn
     $slides = [
@@ -70,7 +70,7 @@
       ['label'=>'Cốp','value'=>'24 lít'],
     ]"
     link="#theon-s"
-    :reverse="false"                                  {{-- text trái / ảnh phải --}}
+    :reverse="false"                               {{-- text trái / ảnh phải --}}
   />
 
   {{-- 2) Evo Lite Neo (đảo layout) --}}
@@ -85,7 +85,7 @@
       ['label'=>'Cốp','value'=>'17 lít'],
     ]"
     link="#evo-lite-neo"
-    :reverse="true"                                   {{-- ảnh trái / text phải --}}
+    :reverse="true"                                  {{-- ảnh trái / text phải --}}
   />
 
   {{-- 3) EvoGrand --}}
@@ -101,6 +101,7 @@
     ]"
     link="#evogrand"
     :reverse="false"
+    
   />
 </section>
 
@@ -108,7 +109,7 @@
 
   {{-- BÁN CHẠY (slider 1-2-3 cột, có prev/next + dots) --}}
 {{-- SẢN PHẨM BÁN CHẠY (Carousel 1-2-3 cột, tái sử dụng home.js) --}}
-<x-section id="ban-chay" class="bg-white">
+<x-section id="ban-chay" class="bg-white" data-aos="fade-up">
   <div class="mb-6">
     <h2 class="text-2xl md:text-3xl font-bold">SẢN PHẨM BÁN CHẠY</h2>
     <p class="mt-1 text-slate-600">Xe máy điện học sinh</p>
@@ -231,7 +232,7 @@
 </x-section>
 
 {{-- ĐÁNH GIÁ --}}
-<x-section id="danh-gia" class="s-danh-gia bg-slate-50">
+<x-section id="danh-gia" class="s-danh-gia bg-slate-50" data-aos="fade-up">
   <div class="s-danh-gia__header mb-10 ">
     <h2 class="s-danh-gia__title text-3xl font-bold">Đánh giá từ khách hàng</h2>
   </div>
@@ -313,13 +314,13 @@
   {{-- CỬA HÀNG --}}
   {{-- 1. TIÊU ĐỀ (ĐẶT TRONG X-SECTION ĐỂ CĂN HÀNG) --}}
 
-<x-section class="s-cua-hang-header bg-white pt-16 md:pt-24 pb-10">
+<x-section class="s-cua-hang-header bg-white pt-16 md:pt-24 pb-10" data-aos="fade-up">
   <h2 class="text-3xl font-bold text-skytt-text">Hệ thống cửa hàng</h2>
 </x-section>
 
 {{-- 2. NỘI DUNG (ẢNH NỀN FULL-WIDTH) --}}
 
-<section id="cua-hang" class="bg-white relative z-10">
+<section id="cua-hang" class="bg-white relative z-10" data-aos="fade-up">
   {{-- Container cho ảnh nền --}}
   <div
     class="relative bg-cover bg-center py-32 md:py-56"
@@ -426,7 +427,7 @@
   - Giữ 'relative z-5' để sửa lỗi footer
   - Đổi 'bg-slate-50' thành 'bg-white'
 --}}
-<x-section id="gioi-thieu" class="s-gioi-thieu bg-white relative z-5  py-30 md:py-50">
+<x-section id="gioi-thieu" class="s-gioi-thieu bg-white relative z-5  py-30 md:py-50" data-aos="fade-up">
 
  {{-- === BẮT ĐẦU SỬA LỖI === --}}
   {{-- 1. Thêm khối tiêu đề riêng (giống hệt section "Đánh giá") --}}

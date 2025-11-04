@@ -1,3 +1,4 @@
+AOS.init();
 document.addEventListener("DOMContentLoaded", function() {
     const cards = document.querySelectorAll('.scroll-card');
     let current = 0, lock = true;

@@ -5,12 +5,12 @@
 @section('content')
     <div class="container mx-auto px-4 py-12">
 
-        <div class="text-center mb-8">
+        <div class="text-center mb-8" data-aos="fade-up">
             <p class="text-lg text-gray-600">Not sure which bike is right for you?</p>
             <h1 class="text-4xl font-bold text-gray-900 mt-1">Meet the family</h1>
         </div>
 
-        <div class="max-w-7xl mx-auto mb-8 px-4 md:px-0 mt-20">
+        <div class="max-w-7xl mx-auto mb-8 px-4 md:px-0 mt-20" data-aos="fade-up" data-aos-delay="100">
 
             <div class="flex justify-between items-center mb-2">
 
@@ -42,7 +42,14 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-7xl mx-auto">
             @foreach ($bikes as $bike)
-                <div class="bg-gray-100 rounded-2xl p-4 transition-all duration-300 hover:shadow-lg aspect-square flex flex-col">
+                <div
+                  class="bg-gray-100 rounded-2xl p-4 transition-all duration-300 hover:shadow-lg aspect-square flex flex-col"
+                  data-aos="fade-up"
+                  {{--
+                    ($loop->index % 2) sẽ là 0 (cột trái) hoặc 1 (cột phải).
+                  --}}
+                  data-aos-delay="{{ ($loop->index % 2) * 100 }}"
+                >
 
                     <h3 class="text-2xl font-semibold text-gray-900 ml-18 mb-2 mt-10">
                         {{ $bike->name }}
@@ -50,7 +57,7 @@
 
                     <p class="text-lg text-gray-500 mb-6 ml-18">
                         {{ $bike->tagline ?? 'Lựa chọn cho bạn' }}
-                    </p>
+                    </D>
 
                     <a href="{{ route('products.show', $bike) }}">
                         <img src="{{ $bike->variants->first()->image_url ?? 'default-image.jpg' }}"
