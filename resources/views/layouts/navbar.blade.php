@@ -9,47 +9,45 @@
     </a>
 
     {{-- Menu giữa --}}
-    <ul class="hidden md:flex list-none gap-8 text-sm fw-semibold text-[var(--skytt-text)]">
-      <li><a href="{{ route('about') }}" class="hover:opacity-70">Giới thiệu</a></li>
+    <ul class="hidden md:flex list-none gap-8 text-sm fw-semibold text-[var(--skytt-text)] items-center"> <li><a href="{{ route('about') }}" class="hover:opacity-70">Giới thiệu</a></li>
 
       @if(isset($bikesByType) && $bikesByType->isNotEmpty())
-        <li class="relative"
+        <li
             x-data="{
               isOpen: false,
               activeTab: '{{ $bikesByType->keys()->first() }}'
             }"
+            @click.away="isOpen = false"
         >
 
-            <a href="{{ route('products.index') }}"
+            <button
+               type="button"
                class="hover:opacity-70 flex items-center gap-1"
-               @mouseover="isOpen = true"
-               @mouseleave="isOpen = false"
+               @click.prevent="isOpen = !isOpen"
                :class="{ 'opacity-70': isOpen }">
                 Sản phẩm
-            </a>
+            </button>
 
             <div x-show="isOpen"
-               @mouseover="isOpen = true"
-               @mouseleave="isOpen = false"
-               x-cloak
-               x-transition:enter="transition ease-out duration-200"
-               x-transition:enter-start="opacity-0"
-               x-transition:enter-end="opacity-100"
-               x-transition:leave="transition ease-in duration-150"
-               x-transition:leave-start="opacity-100"
-               x-transition:leave-end="opacity-0"
-               class="border-t fixed top-[var(--nav-h)] left-0 right-0 bg-white border-b shadow-lg"
-          >
+                 x-cloak
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="border-t fixed top-[var(--nav-h)] left-0 right-0 bg-white border-b shadow-lg"
+            >
                 <div class="container mx-auto p-6">
 
-                    <nav class="flex justify-center gap-8">
+                    <nav class="flex justify-center gap-18 mt-4">
                         @foreach($bikesByType->keys() as $type)
                             <button
                                 @click="activeTab = '{{ $type }}'"
-                                class="text-gray-800 font-semibold no-underline pb-2 text-xl"
+                                class="no-underline pb-2 transition-all duration-200 ease-linear"
                                 :class="{
-                                    'border-b-2 border-blue-600 text-blue-600': activeTab === '{{ $type }}',
-                                    'border-b-2 border-transparent': activeTab !== '{{ $type }}'
+                                    'text-[#3D5A17] font-bold text-lg scale-105': activeTab === '{{ $type }}',
+                                    'font-normal text-base': activeTab !== '{{ $type }}'
                                 }"
                             >
                                 {{ $type }}
@@ -57,20 +55,34 @@
                         @endforeach
                     </nav>
 
-                    <div>
+                    <div class="py-4 relative min-h-[200px]">
                         @foreach($bikesByType as $type => $bikes)
-                            <div x-show="activeTab === '{{ $type }}'">
-                                <div class="flex flex-wrap justify-center gap-20">
+                            <div
+                                 class="absolute inset-0 transition-opacity duration-300 ease-in-out"
+                                 :class="{
+                                     'opacity-100 pointer-events-auto': activeTab === '{{ $type }}',
+                                     'opacity-0 pointer-events-none': activeTab !== '{{ $type }}'
+                                 }"
+                            >
+                                <div class="flex flex-wrap justify-center gap-10">
                                     @foreach($bikes as $bike)
-                                        <a href="{{ route('products.show', $bike) }}" class="flex flex-col items-center rounded-lg hover:bg-gray-100">
+                                        <a href="{{ route('products.show', $bike) }}" class="flex flex-col items-center rounded-lg hover:bg-gray-100 w-40">
 
                                             <img src="{{ asset($bike->variants->first()->image_url ?? 'images/default-bike.png') }}"
                                                  alt="{{ $bike->name }}"
-                                                 class="w-50 h-50 object-contain flex-shrink-0"> <span class="text-lg font-medium text-gray-800 text-center">{{ $bike->name }}</span> </a>
+                                                 class="w-32 h-32 object-contain flex-shrink-0">
+                                            <span class="text-xl font-normal text-gray-800 text-center mt-2">{{ $bike->name }}</span>
+                                        </a>
                                     @endforeach
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+
+                    <div class="flex justify-center mt-1">
+                        <a href="{{ route('products.index') }}" class="text-sm text-[#0B2434] hover:underline">
+                            See all products &rarr;
+                        </a>
                     </div>
 
                 </div>
@@ -80,10 +92,10 @@
         <li><a href="{{ route('products.index') }}" class="hover:opacity-70">Sản phẩm</a></li>
       @endif
 
-      <li><a href="{{ route('news.index') }}"   class="hover:opacity-70">Tin tức</a></li>
+      <li><a href="{{ route('news.index') }}"   class="hover:opacity-70">Tin tức</a></li>
       <li><a href="{{ route('promotions.index') }}" class="hover:opacity-70">Khuyến mãi</a></li>
-      <li><a href="#phu-tung"  class="hover:opacity-70">Phụ tùng</a></li>
-      <li><a href="{{ route('service') }}"   class="hover:opacity-70">Dịch vụ</a></li>
+      <li><a href="#phu-tung"  class="hover:opacity-70">Phụ tùng</a></li>
+      <li><a href="{{ route('service') }}"   class="hover:opacity-70">Dịch vụ</a></li>
     </ul>
 
     {{-- CTA phải: Liên hệ (pill xanh) --}}
