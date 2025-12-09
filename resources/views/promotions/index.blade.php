@@ -90,6 +90,21 @@
             <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white rounded-[25px] shadow-xl p-8 lg:p-12">
                     <h3 class="text-3xl font-semibold text-gray-900 mb-8">Liên hệ tư vấn</h3>
+                    @if (session('success'))
+                        <div class="bg-green-100 text-green-700 p-4 mb-4 rounded-lg shadow-sm">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="bg-red-100 text-red-700 p-4 mb-4 rounded-lg shadow-sm">
+                            <ul class="list-disc list-inside">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <p class="text-gray-600 mb-10">
                         Cần tư vấn về xe? Chúng tôi ở đây để hỗ trợ.
                         Hãy để lại email và số điện thoại, chúng tôi sẽ liên hệ ngay trong 24 giờ.
@@ -97,7 +112,7 @@
 
                     <hr class="mb-8 border-gray-200">
 
-                    <form action="#" method="POST" class="space-y-5">
+                    <form action="{{ route('contact.submit') }}" method="POST" class="space-y-5">
                         @csrf
 
                         <div>
@@ -114,9 +129,12 @@
                             <label for="phone" class="block text-sm font-medium text-gray-700 mb-3">Số điện thoại liên hệ</label>
                             <input type="tel" name="phone" id="phone" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Số điện thoại liên hệ">
                         </div>
-
+                        <div class="hidden">
+                            <label>Don't fill this out if you're human:</label>
+                            <input type="text" name="website_url_check" value="">
+                        </div>
                         <div>
-                            <button type="submit" class="w-auto bg-[#3D5A17] text-white py-2 px-8 rounded-lg font-semibold hover:bg-opacity-90 transition-colors mt-6">
+                            <button type="submit" class="w-auto bg-[#3D5A17] text-white py-2 px-8 rounded-lg font-semibold hover:bg-[] transition-colors mt-6">
                                 Xác nhận
                             </button>
                         </div>

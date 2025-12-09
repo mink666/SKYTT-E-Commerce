@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class BikeFeature extends Model
+class BikeFeatures extends Model
 {
     use HasFactory;
 
+    /**
+     * If your migration file did NOT include $table->timestamps(),
+     * you must set this to false. Based on our previous steps,
+     * we didn't include timestamps for features.
+     */
     public $timestamps = false;
 
     protected $fillable = [
@@ -19,6 +24,9 @@ class BikeFeature extends Model
         'body_content',
     ];
 
+    /**
+     * Get the bike that owns the feature.
+     */
     public function bike()
     {
         return $this->belongsTo(Bike::class);

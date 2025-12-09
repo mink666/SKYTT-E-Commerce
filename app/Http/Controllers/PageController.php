@@ -23,4 +23,5 @@ class PageController extends Controller
     {
         return view('service');
     }
+
 }
