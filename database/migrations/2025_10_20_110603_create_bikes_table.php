@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('bikes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique(); // e.g., "VinFast Evo200"
+            $table->string('slug')->unique();
             $table->date('date_of_release')->nullable(); // Your new field
             $table->text('description')->nullable(); // A general description
+            $table->string('hero_image')->nullable();// Path to image
+            $table->string('tagline')->nullable();
             $table->timestamps();
         });
     }

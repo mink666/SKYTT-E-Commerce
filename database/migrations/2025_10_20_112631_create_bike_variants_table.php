@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('bike_variants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('bike_id')->constrained()->onDelete('cascade');
-
             $table->string('color_name'); // e.g., "Red", "Ocean Blue"
             $table->string('image_url'); // The specific image for this color
             $table->decimal('price', 10, 2); // The specific price for this color
-
+            $table->string('color_hex')->nullable();
             $table->timestamps();
         });
     }

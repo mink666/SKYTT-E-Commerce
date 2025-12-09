@@ -34,13 +34,21 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show(Bike $bike)
-    {
-        // Load all variants and all features
-        $bike->load(['variants', 'features']);
+public function show($slug)
+{
+    $bike = Bike::where('slug', $slug)
+        ->with(['variants', 'features','sections.items'])
+        ->firstOrFail();
+    // Get 4 other bikes of the same type, excluding the current one
+    $related_bikes = Bike::where('type', $bike->type)
+        ->where('id', '!=', $bike->id)
+        ->take(4)
+        ->get();
 
-        return view('products.show', [
-            'bike' => $bike
-        ]);
-    }
+    // No grouping needed
+    return view('products.show', [
+        'bike' => $bike,
+        'related_bikes' => $related_bikes
+    ]);
+}
 }

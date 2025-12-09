@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bike_features', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('bike_id')->constrained()->onDelete('cascade');
-            $table->string('header_title')->nullable();
-            $table->string('header_icon_url')->nullable();
-            $table->text('body_content')->nullable();
-            $table->integer('order')->default(0);
-        });
+        $table->id();
+        $table->foreignId('bike_id')->constrained()->onDelete('cascade');
+        $table->integer('order')->default(0); // 1=TopLeft, 2=BotLeft, 3=TopRight, 4=BotRight
+        $table->string('header_title');       // e.g. "THIẾT KẾ"
+        $table->text('body_content');         // e.g. "Trẻ trung..."
+        $table->string('header_icon_url')->nullable();
+        // No timestamps needed usually, but okay if included
+    });
     }
 
     /**
