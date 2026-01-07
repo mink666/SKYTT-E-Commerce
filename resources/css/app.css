@@ -20,7 +20,7 @@
 :root{
   --skytt-text: #0B2434;   /* màu chữ */
   --skytt-btn:  #3D5A17;   /* màu nền nút */
-  --skytt-arrow-bg: #DFE2E4; 
+  --skytt-arrow-bg: #DFE2E4;
    --skytt-footer-bg: #E5EBDE;
 }
 body{
@@ -85,3 +85,6 @@ small,.text-xs,.text-sm{ font-weight:600; }
   }
 }
 
+[x-cloak] {
+    display: none !important;
+}

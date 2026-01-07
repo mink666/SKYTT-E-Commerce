@@ -11,7 +11,6 @@ class Bike extends Model
 
     protected $fillable = [
         'name',
-        'date_of_release',
         'description',
     ];
     public function features()
