@@ -2,16 +2,20 @@
 @extends('layouts.app')
 
 @section('content')
-
 {{-- ===================================================================== --}}
-{{-- 1. HERO GIỚI THIỆU (Updated: Image Scaled up for Mobile)              --}}
+{{-- 1. HERO GIỚI THIỆU                                                    --}}
 {{-- ===================================================================== --}}
-<section id="about-hero" class="relative h-[calc(100vh-56px)] pt-14 bg-slate-50" >
+{{--
+    HEIGHT LOGIC:
+    - min-h-[1000px]: Mobile (Increased to prevent image cut-off)
+    - md:h-[600px]: iPad/Tablet (Fixed 600px)
+    - xl:h-[calc(100vh-56px)]: Laptop/PC (Full screen)
+--}}
+<section id="about-hero" class="relative min-h-[850px] md:min-h-0 md:h-[600px] xl:h-[calc(100vh-56px)] pt-14 bg-slate-50 overflow-hidden">
   <div class="h-full w-screen relative left-1/2 -translate-x-1/2">
     <div class="mx-auto max-w-[1500px] h-full px-6 lg:px-10 grid lg:grid-cols-2 gap-6">
 
-      {{-- TEXT LEFT --}}
-      <div class="self-start pt-10 lg:pt-20 xl:pt-36 space-y-4 lg:pl-6 xl:pl-10" data-aos="fade-right">
+      <div class="self-start md:pt-10 lg:pt-24 xl:pt-36 space-y-4 lg:pl-6 xl:pl-10 relative z-10" data-aos="fade-right">
         <p>Giới thiệu về</p>
         <h1 class="font-lexend text-3xl md:text-5xl xl:text-6xl font-semibold leading-tight">
           Công ty VinFast SKYTT
@@ -29,10 +33,13 @@
       {{-- IMAGE RIGHT --}}
       <div class="relative self-start pt-10 lg:pt-20 xl:pt-24 flex justify-end pr-2 lg:pr-6 overflow-visible" data-aos="fade-left">
         <img src="{{ asset('images/about/hero.png') }}" alt="VinFast About Hero"
-             class="object-contain max-h-[85vh] w-[95%]
-                    scale-[1.4] origin-center translate-y-6 md:scale-100 md:translate-y-0  {{-- Mobile: Scale up 1.4x & push down slightly --}}
+             class="object-contain w-[95%]
+                    {{-- Mobile: Scale 1.5 and push down (translate-y-24) --}}
+                    scale-[1.5] origin-top translate-y-24
+                    {{-- Tablet: Reset scale and position --}}
+                    md:scale-100 md:translate-y-0 md:origin-center
                     lg:w-[95%]
-                    lg:scale-[1.55] xl:scale-[1.65]
+                    lg:scale-[1.4] xl:scale-[1.65]
                     lg:translate-x-12 xl:translate-x-20
                     lg:mr-[-40px] xl:mr-[-80px]"
         >
@@ -170,7 +177,7 @@
 </x-section>
 
 {{-- ===================================================================== --}}
-{{-- 4. VỀ NHÂN VIÊN (Updated: Items Centered on Mobile)                   --}}
+{{-- 4. VỀ NHÂN VIÊN (Unchanged)                                           --}}
 {{-- ===================================================================== --}}
 <section class="py-10" data-aos="fade-up">
     <h2 class="font-lexend text-2xl md:text-3xl text-center mb-8">Về nhân viên</h2>
@@ -183,7 +190,6 @@
             <div class="flex transition-transform duration-500 ease-out" data-carousel-track>
 
                 {{-- Item 1 --}}
-                {{-- ADDED: 'flex justify-center' to center the card inside the slide --}}
                 <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"
@@ -222,7 +228,7 @@
                     />
                 </div>
 
-                {{-- Item 4 (Repeated in your code) --}}
+                {{-- Item 4 --}}
                 <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"

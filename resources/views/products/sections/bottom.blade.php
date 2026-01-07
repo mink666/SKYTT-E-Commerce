@@ -99,13 +99,12 @@
             </div>
         </div>
     </div>
-
 {{-- ========================================================= --}}
 {{-- 3. RELATED BIKES (Bottom)                                 --}}
 {{-- ========================================================= --}}
 
 @php
-    // Filter bikes where is_active is 1, then map the data
+    // (PHP Logic remains exactly the same as your code)
     $bikesJson = $related_bikes
         ->where('is_active', 1)
         ->map(function($bike) {
@@ -123,7 +122,7 @@
                 'link'  => route('products.show', $bike),
             ];
         })
-        ->values() // Reset array keys to ensure JSON array (not object)
+        ->values()
         ->toJson();
 @endphp
 
@@ -211,8 +210,17 @@
             </div>
 
             {{-- RIGHT COLUMN: Image Preview (Desktop Only) --}}
-            <div class="hidden lg:block lg:col-span-7 relative h-[600px]">
-                <div class="sticky top-24">
+            {{--
+                FIXED: Removed 'h-[600px]' from this parent div.
+                Now it shares the height of the left column, allowing 'sticky' to work.
+            --}}
+            <div class="hidden lg:block lg:col-span-7 relative">
+
+                {{--
+                    FIXED: Changed 'top-24' to 'top-32' for better spacing from navbar.
+                    This sticky div will now slide down until it hits the bottom of the list.
+                --}}
+                <div class="sticky top-32">
 
                     {{-- IMAGE CONTAINER --}}
                     <div class="relative w-full h-[500px] flex items-center justify-center p-8 bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
