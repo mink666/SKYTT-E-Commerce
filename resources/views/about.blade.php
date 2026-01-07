@@ -3,12 +3,14 @@
 
 @section('content')
 
-{{-- HERO GIỚI THIỆU (full-screen, text trái – ảnh phải) --}}
+{{-- ===================================================================== --}}
+{{-- 1. HERO GIỚI THIỆU (Updated: Image Scaled up for Mobile)              --}}
+{{-- ===================================================================== --}}
 <section id="about-hero" class="relative h-[calc(100vh-56px)] pt-14 bg-slate-50" >
   <div class="h-full w-screen relative left-1/2 -translate-x-1/2">
     <div class="mx-auto max-w-[1500px] h-full px-6 lg:px-10 grid lg:grid-cols-2 gap-6">
 
-      {{-- TEXT LEFT (đẩy lên trên) --}}
+      {{-- TEXT LEFT --}}
       <div class="self-start pt-10 lg:pt-20 xl:pt-36 space-y-4 lg:pl-6 xl:pl-10" data-aos="fade-right">
         <p>Giới thiệu về</p>
         <h1 class="font-lexend text-3xl md:text-5xl xl:text-6xl font-semibold leading-tight">
@@ -24,26 +26,28 @@
         </p>
       </div>
 
-      {{-- IMAGE RIGHT (ngang với tiêu đề, phóng to) --}}
+      {{-- IMAGE RIGHT --}}
       <div class="relative self-start pt-10 lg:pt-20 xl:pt-24 flex justify-end pr-2 lg:pr-6 overflow-visible" data-aos="fade-left">
         <img src="{{ asset('images/about/hero.png') }}" alt="VinFast About Hero"
-    class="object-contain max-h-[85vh] w-[95%] lg:w-[95%]
-       lg:scale-[1.55] xl:scale-[1.65]
-       lg:translate-x-12 xl:translate-x-20   {{-- đẩy sang phải nhiều hơn --}}
-       lg:mr-[-40px] xl:mr-[-80px]"
-
+             class="object-contain max-h-[85vh] w-[95%]
+                    scale-[1.4] origin-center translate-y-6 md:scale-100 md:translate-y-0  {{-- Mobile: Scale up 1.4x & push down slightly --}}
+                    lg:w-[95%]
+                    lg:scale-[1.55] xl:scale-[1.65]
+                    lg:translate-x-12 xl:translate-x-20
+                    lg:mr-[-40px] xl:mr-[-80px]"
+        >
       </div>
 
     </div>
   </div>
 </section>
 
-
-
-  {{-- DẤU CHÂN TOÀN CẦU --}}
+{{-- ===================================================================== --}}
+{{-- 2. DẤU CHÂN TOÀN CẦU (Unchanged)                                      --}}
+{{-- ===================================================================== --}}
 <section id="global-footprint" >
 
-  {{-- Header (nền trắng, canh giữa) --}}
+  {{-- Header --}}
   <div class="bg-white" data-aos="fade-up">
     <div class="max-w-[900px] mx-auto px-6 py-12 text-center">
       <h2 class="font-lexend font-semibold text-3xl md:text-4xl leading-tight">Dấu chân toàn cầu</h2>
@@ -54,21 +58,21 @@
     </div>
   </div>
 
-  {{-- Vùng nội dung (nền xám nhạt) --}}
+  {{-- Content Area --}}
   <div class="bg-slate-50" data-aos="fade-up">
     <div class="w-screen relative left-1/2 -translate-x-1/2">
       <div class="mx-auto max-w-[1200px] grid lg:grid-cols-2 items-center gap-12 px-6 py-14">
 
-       {{-- LEFT: image card (ôm sát, không màu nền, bo góc 29, đổ bóng như mẫu) --}}
-<div class="w-full max-w-[620px] mx-auto">
+        {{-- LEFT: image card --}}
+        <div class="w-full max-w-[620px] mx-auto">
+          <img
+            src="{{ asset('images/about/values.png') }}"
+            alt="Giá trị"
+            class="block w-full h-auto select-none pointer-events-none"
+            loading="lazy" decoding="async"
+          >
+        </div>
 
-    <img
-      src="{{ asset('images/about/values.png') }}"
-      alt="Giá trị"
-      class="block w-full h-auto select-none pointer-events-none"
-      loading="lazy" decoding="async"
-    >
-</div>
         {{-- RIGHT: content --}}
         <div class="space-y-6">
           <span class="inline-flex px-4 py-1 rounded-full bg-[var(--skytt-btn)]/15 text-[var(--skytt-btn)] text-sm">
@@ -106,25 +110,18 @@
   </div>
 </section>
 
-
- {{-- MISSION — Hiệu ứng xếp chồng (Sticky Stacking) với FADE --}}
+{{-- ===================================================================== --}}
+{{-- 3. MISSION (Unchanged)                                                --}}
+{{-- ===================================================================== --}}
 <x-section id="su-menh" class="bg-white !px-0" data-aos="fade-up" >
-
-    {{-- 1. Khai báo Alpine 'x-data'. --}}
     <div
         x-data="{ activeCard: 1 }"
-        class="max-w-[1200px] mx-auto px-4 md:px-6 pb-[5vh]" {{-- Giữ nguyên padding-bottom 15vh --}}
+        class="max-w-[1200px] mx-auto px-4 md:px-6 pb-[5vh]"
     >
-
-        {{--
-            === THAY ĐỔI ===
-            Tất cả các card bây giờ đều dùng 'sticky top-24'
-            để căn thẳng hàng ở cùng một vị trí.
-        --}}
         <x-mission-card
             x-intersect:enter.half="activeCard = 1"
             :class="{ 'opacity-50': activeCard > 1 }"
-            class="sticky top-50 z-10 transition-opacity duration-300 ease-in-out" {{-- Đổi từ top-16 --}}
+            class="sticky top-50 z-10 transition-opacity duration-300 ease-in-out"
             tone="gray"
             icon="images/about/icon-1.png"
             title="Lựa chọn bền vững"
@@ -133,11 +130,10 @@
             height="h-[380px] md:h-[440px] lg:h-[500px]"
         />
 
-        {{-- Card 2 --}}
         <x-mission-card
             x-intersect:enter.half="activeCard = 2"
             :class="{ 'opacity-50': activeCard > 2 }"
-            class="sticky top-50 z-20 transition-opacity duration-300 ease-in-out" {{-- Đổi từ top-20 --}}
+            class="sticky top-50 z-20 transition-opacity duration-300 ease-in-out"
             tone="green"
             :reverse="true"
             icon="images/about/icon-2.png"
@@ -147,11 +143,10 @@
             height="h-[380px] md:h-[440px] lg:h-[500px]"
         />
 
-        {{-- Card 3 --}}
         <x-mission-card
             x-intersect:enter.half="activeCard = 3"
             :class="{ 'opacity-50': activeCard > 3 }"
-            class="sticky top-50 z-30 transition-opacity duration-300 ease-in-out" {{-- Giữ nguyên top-24 --}}
+            class="sticky top-50 z-30 transition-opacity duration-300 ease-in-out"
             tone="gray"
             icon="images/about/icon-3.png"
             title="Đa dạng cho mọi nhu cầu"
@@ -160,10 +155,9 @@
             height="h-[380px] md:h-[440px] lg:h-[500px]"
         />
 
-        {{-- Card 4 --}}
         <x-mission-card
             x-intersect:enter.half="activeCard = 4"
-            class="sticky top-50 z-40 transition-opacity duration-300 ease-in-out" {{-- Đổi từ top-28 --}}
+            class="sticky top-50 z-40 transition-opacity duration-300 ease-in-out"
             tone="green"
             :reverse="true"
             icon="images/about/icon-4.png"
@@ -172,16 +166,16 @@
             image="images/about/mission-4.png"
             height="h-[380px] md:h-[440px] lg:h-[500px]"
         />
-
     </div>
 </x-section>
 
-
-{{-- VỀ NHÂN VIÊN (ĐÃ CHUYỂN THÀNH CAROUSEL) --}}
+{{-- ===================================================================== --}}
+{{-- 4. VỀ NHÂN VIÊN (Updated: Items Centered on Mobile)                   --}}
+{{-- ===================================================================== --}}
 <section class="py-10" data-aos="fade-up">
     <h2 class="font-lexend text-2xl md:text-3xl text-center mb-8">Về nhân viên</h2>
 
-    {{-- BẮT ĐẦU CAROUSEL (Tái sử dụng home.js) --}}
+    {{-- BẮT ĐẦU CAROUSEL --}}
     <div class="relative max-w-[1100px] mx-auto" data-carousel>
 
         {{-- 1. Track chứa các item --}}
@@ -189,7 +183,8 @@
             <div class="flex transition-transform duration-500 ease-out" data-carousel-track>
 
                 {{-- Item 1 --}}
-                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                {{-- ADDED: 'flex justify-center' to center the card inside the slide --}}
+                <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"
                         avatar="images/about/staff-1.png"
@@ -202,7 +197,7 @@
                 </div>
 
                 {{-- Item 2 --}}
-                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"
                         avatar="images/about/staff-2.png"
@@ -215,7 +210,7 @@
                 </div>
 
                 {{-- Item 3 --}}
-                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"
                         avatar="images/about/staff-3.png"
@@ -226,8 +221,9 @@
                         :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
                     />
                 </div>
-{{-- Item 1 --}}
-                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+
+                {{-- Item 4 (Repeated in your code) --}}
+                <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"
                         avatar="images/about/staff-1.png"
@@ -239,8 +235,8 @@
                     />
                 </div>
 
-                {{-- Item 2 --}}
-                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                {{-- Item 5 --}}
+                <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"
                         avatar="images/about/staff-2.png"
@@ -252,8 +248,8 @@
                     />
                 </div>
 
-                {{-- Item 3 --}}
-                <div class="flex-shrink-0 w-full px-3" data-carousel-item>
+                {{-- Item 6 --}}
+                <div class="flex-shrink-0 w-full px-3 flex justify-center" data-carousel-item>
                     <x-staff-card
                         name="Nguyễn Tuấn Khoa"
                         avatar="images/about/staff-3.png"
@@ -264,26 +260,24 @@
                         :cta="['label' => 'Liên hệ ngay', 'href' => '#']"
                     />
                 </div>
-
-                {{-- Bạn có thể thêm Item 4, 5, 6... ở đây nếu muốn --}}
 
             </div>
         </div>
 
-        {{-- 2. Navigation (THAY THẾ CHO CÁC DOTS TĨNH CŨ) --}}
+        {{-- 2. Navigation --}}
         <div class="mt-8 flex items-center justify-center gap-4">
-            {{-- Nút Prev --}}
+            {{-- Prev --}}
             <button type="button" aria-label="Previous"
                 class="grid place-items-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500"
                 data-carousel-prev>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"/></svg>
             </button>
 
-            {{-- Chỗ chứa Dots (JS sẽ tự điền vào) --}}
+            {{-- Dots --}}
             <div class="flex items-center justify-center gap-2" data-carousel-dots>
             </div>
 
-            {{-- Nút Next --}}
+            {{-- Next --}}
             <button type="button" aria-label="Next"
                 class="grid place-items-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500"
                 data-carousel-next>
@@ -292,10 +286,7 @@
         </div>
 
     </div>
-    {{-- KẾT THÚC CAROUSEL --}}
-
 </section>
-
 
 @endsection
 

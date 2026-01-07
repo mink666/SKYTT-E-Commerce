@@ -22,7 +22,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('layouts.navbar', function ($view) {
-            $bikesByType = Bike::with('variants')
+            $bikesByType = Bike::where('is_active', 1)
+                             ->with('variants')
                              ->orderBy('name')
                              ->get()
                              ->groupBy('type');

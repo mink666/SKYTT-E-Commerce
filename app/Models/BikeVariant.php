@@ -15,7 +15,6 @@ class BikeVariant extends Model
         'bike_id',
         'color_name',
         'image_url',
-        'feature_image_url',
         'price',
     ];
 

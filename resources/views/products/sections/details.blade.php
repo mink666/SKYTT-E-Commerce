@@ -1,113 +1,113 @@
 <div class="font-sans text-[#1A1A1A]">
     @foreach($bike->sections->sortBy('sort_order') as $section)
 
-        @php
-            // 1. Separate the items into their correct groups for clean access (Used for split layouts)
-            $imageItem = $section->items
-                ->whereNotNull('image')
-                ->sortBy('sort_order')
-                ->first();
-
-            $textItems = $section->items
-                ->when($imageItem, function ($collection) use ($imageItem) {
-                    return $collection->where('id', '!=', $imageItem->id);
-                }, function ($collection) {
-                    return $collection->whereNull('image');
-                })
-                ->whereNull('image');
-        @endphp
-
         {{-- ========================================================= --}}
-        {{-- 1. TEXT/IMAGE SPLIT LAYOUT (Normal/Reverse - 50/50) --}}
-        {{-- Now fully dynamic for header, text, and bullets --}}
+        {{-- 1. TEXT/IMAGE SPLIT LAYOUTS (Standard & Reverse)          --}}
         {{-- ========================================================= --}}
         @if($section->type === 'text_image_split' || $section->type === 'text_image_split_reverse')
-            <div class="py-24 bg-[#F6F9F8] h-[912px] text-[#0B2434]">
-                <div class="container mx-auto px-4 max-w-6xl">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
 
-                        {{-- IMAGE COLUMN --}}
-                        <div class="{{ $section->type === 'text_image_split_reverse' ? 'order-2 md:order-last' : '' }}">
-                            @if($imageItem)
-                                {{-- REVERTED TO FIXED HEIGHT (600px) --}}
-                                <div class="relative h-[600px] bg-gray-100 rounded-3xl overflow-hidden">
-                                    <img src="{{ asset($imageItem->image) }}"
-                                            data-db-path="{{ $imageItem->image }}"
-                                         alt="{{ $section->title }}"
-                                         class="absolute inset-0 w-full h-full object-contain">
-                                </div>
+            @php
+                $isReverse = $section->type === 'text_image_split_reverse';
+            @endphp
+
+            <section class="w-full bg-white border-gray-100 overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-0 md:min-h-[700px]">
+
+                    {{-- TEXT COLUMN --}}
+                    <div class="flex flex-col justify-center p-8 md:p-16 lg:p-24 order-2 {{ $isReverse ? 'md:order-2' : 'md:order-1' }}"
+                         data-aos="{{ $isReverse ? 'fade-left' : 'fade-right' }}"
+                         data-aos-duration="800">
+
+                        <div class="max-w-xl mx-auto {{ $isReverse ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0' }}">
+
+                            {{-- A. SUBTITLE (Eyebrow - ON TOP) --}}
+                            @if($section->subtitle)
+                                <p class="text-xs font-bold tracking-widest text-gray-500 uppercase mb-3 md:mb-4">
+                                    {{ $section->subtitle }}
+                                </p>
                             @endif
-                        </div>
 
-                        {{-- TEXT COLUMN (Dynamic) --}}
-                        <div class="py-8 {{ $section->type === 'text_image_split_reverse' ? 'order-1 md:order-first' : '' }}">
-                            <h2 class="text-4xl mb-6">{{ $section->title }}</h2>
+                            {{-- B. TITLE (Main Header) --}}
+                            <h2 class="text-xl md:text-2xl lg:text-4xl font-bold text-[#0B2434] mb-8 leading-tight">
+                                {{ $section->title }}
+                            </h2>
 
-                            <div class="space-y-6">
-                                @foreach($textItems as $item)
+                            {{-- C. ITEMS LOOP (Subheaders, Text, Bullets) --}}
+                            <div class="space-y-8">
+                                @foreach($section->items->sortBy('sort_order') as $item)
                                     <div>
-                                        {{-- 1. HEADER (Used for main titles like 'Hiệu suất ấn tượng:') --}}
+                                        {{-- Item Header --}}
                                         @if($item->header)
-                                            <h3 class="text-lg mb-2">{{ $item->header }}</h3>
+                                            <h4 class="text-lg font-bold text-[#0B2434] mb-2">
+                                                {{ $item->header }}
+                                            </h4>
                                         @endif
 
-                                        {{-- 2. BULLETS (Renders list from JSON column) --}}
-                                        @if(!empty($item->bullets))
-                                            <ul class="list-disc list-inside space-y-2 pl-4 text-gray-700">
-                                                @foreach($item->bullets as $bullet)
+                                        {{-- Item Bullets --}}
+                                        @if($item->bullets)
+                                            <ul class="list-disc pl-5 space-y-1 text-gray-600">
+                                                @foreach(is_array($item->bullets) ? $item->bullets : json_decode($item->bullets, true) ?? [] as $bullet)
                                                     <li>{{ $bullet }}</li>
                                                 @endforeach
                                             </ul>
                                         @endif
 
-                                        {{-- 3. TEXT (Renders notes or disclaimers, checking for italic formatting) --}}
+                                        {{-- Item Text --}}
                                         @if($item->text)
-                                            <p class="{{ str_contains($item->text, 'Theo điều kiện tiêu chuẩn') || str_contains($item->text, '*') ? 'text-xs italic mt-2' : 'leading-relaxed' }}">
+                                            <p class="text-gray-600 leading-relaxed mt-3 italic">
                                                 {{ $item->text }}
                                             </p>
                                         @endif
                                     </div>
                                 @endforeach
                             </div>
+
                         </div>
-
                     </div>
-                </div>
-            </div>
+                    <div class="relative w-full h-[400px] md:h-full order-1 {{ $isReverse ? 'md:order-1' : 'md:order-2' }}"
+                         data-aos="{{ $isReverse ? 'fade-right' : 'fade-left' }}"
+                         data-aos-duration="800">
 
-        {{-- ========================================================= --}}
-        {{-- 2. TWO CARD LAYOUT (Two by Two) --}}
-        {{-- Custom Styles: BG #DBE0D3, Cards BG #F6F9F8, Text #0B2434, Height 931px --}}
+                        @if($section->image)
+                            <img src="{{ asset($section->image) }}"
+                                 alt="{{ $section->title }}"
+                                 class="absolute inset-0 w-full h-full object-contain">
+                        @endif
+                    </div>
+
+                </div>
+            </section>
+{{-- 2. FIVE CARD LAYOUT (Horizontal Scroll on Mobile)         --}}
         {{-- ========================================================= --}}
         @elseif($section->type === 'two_cards')
-            <div class="py-24 bg-[#DBE0D3] text-[#0B2434]">
-                <div class="container mx-auto px-4 max-w-6xl">
+            <div class="py-10 md:py-16 text-[#0B2434]">
+                <div class="container mx-auto px-4 max-w-[1400px]">
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="flex flex-nowrap overflow-x-auto snap-x snap-mandatory gap-4 md:grid md:grid-cols-3 lg:grid-cols-5 md:gap-6 pb-6 md:pb-0 hide-scrollbar">
+
                         @foreach($section->items->sortBy('sort_order') as $item)
-                            <div class="bg-[#F6F9F8] rounded-3xl p-10 h-[931px] flex flex-col relative overflow-hidden group hover:shadow-lg transition-shadow">
-                                <div class="relative z-10">
-                                    {{-- DYNAMIC CONTENT FOR CARD --}}
-                                    @if($item->header)
-                                        <p class="text-xs tracking-widest text-gray-500 uppercase mb-2">{{ $item->header }}</p>
+
+                            {{-- Card Container --}}
+                            <div class="flex-shrink-0 w-[65vw] md:w-auto snap-center bg-[#F6F9F8] rounded-3xl h-[550px] flex flex-col overflow-hidden group"
+                                 data-aos="fade-down"
+                                 data-aos-duration="800"
+                                 data-aos-delay="{{ $loop->index * 150 }}">
+                                {{-- 1. IMAGE SECTION (Top - 75% height) --}}
+                                <div class="h-[75%] w-full relative overflow-hidden">
+                                    @if($item->image)
+                                        <img src="{{ asset($item->image) }}"
+                                            data-db-path="{{ $item->image }}"
+                                            alt="Feature Image"
+                                            class="w-full h-full object-cover">
                                     @endif
-                                    <h3 class="text-3xl mb-4">{{ $item->header }}</h3>
-                                    <p class="leading-relaxed">{{ $item->text }}</p>
-                                    {{-- END DYNAMIC CONTENT --}}
                                 </div>
-                                @if($item->image)
-                                    @php
-                                        // Determine the width and set the necessary centering classes
-                                        // $loop->index is 0 for the first card in the section, 1 for the second.
-                                        $imageClasses = $loop->index === 0
-                                            ? 'left-1/2 -translate-x-1/2 w-4/5' // Card 1: Centered, 80% width
-                                            : 'left-1/2 -translate-x-1/2 w-3/5'; // Card 2: Centered, 60% width
-                                    @endphp
-                                    <img src="{{ asset($item->image) }}"
-                                         data-db-path="{{ $item->image }}"
-                                         alt="{{ $item->header }}"
-                                         class="absolute bottom-0 h-full object-contain translate-y-10 group-hover:translate-y-5 transition-transform duration-500 {{ $imageClasses }}">
-                                @endif
+                                {{-- 2. TEXT SECTION (Bottom - 25% height) --}}
+                                <div class="h-[25%] flex items-start p-6">
+                                    <p class="text-sm md:text-base leading-relaxed text-[#0B2434] font-medium whitespace-normal">
+                                        {{ $item->text }}
+                                    </p>
+                                </div>
+
                             </div>
                         @endforeach
                     </div>
@@ -116,3 +116,14 @@
         @endif
     @endforeach
 </div>
+
+{{-- Helper CSS to hide scrollbar but keep functionality --}}
+<style>
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
