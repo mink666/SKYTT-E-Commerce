@@ -48,7 +48,7 @@ class PromotionController extends Controller
         ]);
 
         // --- TELEGRAM CONFIG ---
-        $token = "8566464606:AAGjOz1zqxYcfl5_5sVCXxiLXkirGJpgyM8";
+        $token = "";
         $chatId = "6253342146";
 
         $text = "🔔 *CÓ KHÁCH HÀNG MỚI!*\n\n"
