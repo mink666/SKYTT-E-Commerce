@@ -4,37 +4,39 @@
 
 @section('content')
     {{-- Hero Section --}}
-    <div class="w-full bg-[#DBE0D3] h-130">
-    <div class="mx-auto flex flex-col md:flex-row items-center h-full">
+    {{-- MODIFICATION: Changed h-130 to h-auto md:h-[420px] to reduce height --}}
+    <div class="w-full bg-[#DBE0D3] h-auto md:h-[420px]">
+        <div class="mx-auto flex flex-col md:flex-row items-center h-full">
 
-        {{-- Hero Text --}}
-        <div class="w-full md:w-1/2 p-8 lg:p-16" data-aos="fade-right">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">RECENT NEWS</h2>
+            {{-- Hero Text --}}
+            <div class="w-full md:w-1/2 p-8 lg:p-16" data-aos="fade-right">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">RECENT NEWS</h2>
 
-            @if ($featuredNews)
-                <h3 class="text-2xl font-semibold text-gray-900">
-                    {{ $featuredNews->title }}
-                </h3>
-                <p class="text-gray-600 mt-2 mb-6">
-                    {{ Str::limit(strip_tags($featuredNews->content), 150) }}
-                </p>
-                <a href="{{ route('news.show', $featuredNews) }}"
-                   class="inline-block bg-gray-800 text-white py-2 px-5 rounded-full font-semibold hover:bg-gray-700 transition-colors">
-                    Xem thêm
-                </a>
-            @else
-                <p>No recent news to display.</p>
-            @endif
-        </div>
+                @if ($featuredNews)
+                    <h3 class="text-2xl font-semibold text-gray-900">
+                        {{ $featuredNews->title }}
+                    </h3>
+                    <p class="text-gray-600 mt-2 mb-6">
+                        {{ Str::limit(strip_tags($featuredNews->content), 150) }}
+                    </p>
+                    <a href="{{ route('news.show', $featuredNews) }}"
+                       class="inline-block bg-gray-800 text-white py-2 px-5 rounded-full font-semibold hover:bg-gray-700 transition-colors">
+                        Xem thêm
+                    </a>
+                @else
+                    <p>No recent news to display.</p>
+                @endif
+            </div>
 
-        {{-- Hero Image --}}
-        <div class="w-full md:w-1/2 h-full" data-aos="fade-left">
-            <img src="{{ asset($featuredNews->image_url ?? '/images/default-hero.jpg') }}"
-                 alt="{{ $featuredNews->title ?? 'News' }}"
-                 class="w-full h-full object-cover block">
+            {{-- Hero Image --}}
+            {{-- Added min-h for mobile to ensure image shows, but kept h-full for desktop --}}
+            <div class="w-full md:w-1/2 h-64 md:h-full" data-aos="fade-left">
+                <img src="{{ asset($featuredNews->image_url ?? '/images/default-hero.jpg') }}"
+                     alt="{{ $featuredNews->title ?? 'News' }}"
+                     class="w-full h-full object-cover block">
+            </div>
         </div>
     </div>
-</div>
 
     <div class="container mx-auto px-4 py-12">
 
@@ -68,39 +70,40 @@
         {{-- News Card Grid --}}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
-        @forelse ($newsList as $news)
-            <div
-              class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[370px]"
-              data-aos="fade-up"
-              data-aos-delay="{{ ($loop->index % 3) * 100 }}"
-            >
+            @forelse ($newsList as $news)
+                {{-- MODIFICATION: Changed fixed h-[370px] to h-[370px] md:h-[320px] --}}
+                <div
+                    class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[370px] md:h-[320px]"
+                    data-aos="fade-up"
+                    data-aos-delay="{{ ($loop->index % 3) * 100 }}"
+                >
 
-                <a href="{{ route('news.show', $news) }}" class="block h-3/5 align-bottom">
-                    <img src="{{ asset($news->image_url ?? 'images/default-news.jpg') }}"
-                         alt="{{ $news->title }}"
-                         class="w-full h-full object-cover">
-                </a>
-
-                <div class="p-5 flex flex-col flex-1">
-                    <a href="{{ route('news.show', $news) }}">
-                        <h3 class="text-lg font-semibold text-gray-900 hover:text-blue-600">
-                            {{ $news->title }}
-                        </h3>
+                    <a href="{{ route('news.show', $news) }}" class="block h-3/5 align-bottom">
+                        <img src="{{ asset($news->image_url ?? 'images/default-news.jpg') }}"
+                             alt="{{ $news->title }}"
+                             class="w-full h-full object-cover">
                     </a>
 
-                    <div class="mt-auto flex items-center">
-                        <a href="{{ route('news.show', $news) }}" class="inline-block bg-[#3D5A17] bg-opacity-10 text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-opacity-20 mr-auto">
-                            Xem chi tiết
+                    <div class="p-5 flex flex-col flex-1">
+                        <a href="{{ route('news.show', $news) }}">
+                            <h3 class="text-lg font-semibold text-gray-900 hover:text-blue-600 line-clamp-2">
+                                {{ $news->title }}
+                            </h3>
                         </a>
-                        <p class="text-sm text-gray-500">
-                            {{ $news->publish_date ? \Carbon\Carbon::parse($news->publish_date)->format('M d, Y') : '' }}
-                        </p>
+
+                        <div class="mt-auto flex items-center">
+                            <a href="{{ route('news.show', $news) }}" class="inline-block bg-[#3D5A17] bg-opacity-10 text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-opacity-20 mr-auto">
+                                Xem chi tiết
+                            </a>
+                            <p class="text-sm text-gray-500">
+                                {{ $news->publish_date ? \Carbon\Carbon::parse($news->publish_date)->format('M d, Y') : '' }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        @empty
-            <p class="md:col-span-3 text-center text-gray-500">No news articles found.</p>
-        @endforelse
+            @empty
+                <p class="md:col-span-3 text-center text-gray-500">No news articles found.</p>
+            @endforelse
 
         </div>
 

@@ -45,19 +45,19 @@
     foreach($economy as $eco) { $bestSellers->push($eco); }
 
 @endphp
-
 {{-- ========================================================= --}}
-{{-- 2. HERO SECTION (Strict Responsive Scaling)               --}}
+{{-- 2. HERO SECTION (Strict Responsive Scaling: Mobile -> Laptop -> PC) --}}
 {{-- ========================================================= --}}
-{{--
-    LOGIC:
-    - Mobile: h-[540px] (Matches 431x540 ratio)
-    - Desktop (md+): h-[600px] (Matches 1920x600 ratio)
---}}
 <section id="hero" class="relative bg-gray-50" data-aos="fade-up">
 
+    {{--
+        CONTAINER HEIGHT LOGIC:
+        - h-[540px]: Mobile
+        - md:h-[470px]: Laptop/Tablet (Desktop base)
+        - xl:h-[600px]: Large PC screens
+    --}}
     <div class="relative w-full mx-auto overflow-hidden group shadow-sm
-                h-[540px] md:h-[470px]"
+                h-[540px] md:h-[470px] xl:h-[600px]"
          data-hero>
 
         <div class="h-full w-full">
@@ -65,21 +65,27 @@
                 @foreach($desktopSlides as $index => $desktopSrc)
                     <div class="w-full h-full shrink-0 relative">
 
-                        {{-- 1. MOBILE IMAGE (Visible on small screens, Hidden on md+) --}}
+                        {{-- 1. MOBILE IMAGE --}}
                         <img src="{{ $mobileSlides[$index] ?? $desktopSrc }}"
                              alt="Hero Mobile"
                              class="block md:hidden w-full h-full object-cover object-center">
 
-                        {{-- 2. DESKTOP IMAGE (Hidden on small, Visible on md+) --}}
+                        {{-- 2. DESKTOP/PC IMAGE --}}
+                        {{--
+                            IMAGE HEIGHT LOGIC:
+                            - md:h-[470px]: Laptop
+                            - xl:h-[600px]: PC
+                            - max-w-[1920px]: Prevents image from over-stretching on ultra-wide monitors
+                        --}}
                         <img src="{{ $desktopSrc }}"
                              alt="Hero Desktop"
-                             class="hidden md:block w-full h-[470px] object-cover object-center mx-auto">
+                             class="hidden md:block w-full h-[470px] xl:h-[600px] max-w-[1920px] object-cover object-center mx-auto">
                     </div>
                 @endforeach
             </div>
         </div>
 
-        {{-- Arrows (Only show if more than 1 slide) --}}
+        {{-- Arrows --}}
         @if(count($desktopSlides) > 1)
         <button type="button" aria-label="Previous" class="hidden md:grid absolute left-3 top-1/2 -translate-y-1/2 place-items-center rounded-full p-2 bg-white/70 hover:bg-white shadow" data-hero-prev>
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24"><path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"/></svg>

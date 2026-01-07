@@ -39,12 +39,12 @@
 
             @forelse ($promotions as $promo)
                 {{--
-                  === THÊM HIỆU ỨNG VÀO DÒNG DƯỚI ĐÂY ===
-                  - data-aos="fade-up"
-                  - data-aos-delay (so le 3 cột)
+                  === MODIFICATION ===
+                  Changed h-[400px] to h-[400px] md:h-[340px]
+                  to reduce height on iPad/Tablets
                 --}}
                 <div
-                  class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[400px]"
+                  class="bg-white border border-gray-200 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col h-[400px] md:h-[340px]"
                   data-aos="fade-up"
                   data-aos-delay="{{ ($loop->index % 3) * 100 }}"
                 >
@@ -57,7 +57,7 @@
 
                     <div class="p-5 flex flex-col flex-1">
                         <a href="{{ route('news.show', $promo) }}">
-                            <h3 class="text-lg font-semibold text-gray-900 hover:text-blue-600">
+                            <h3 class="text-lg font-semibold text-gray-900 hover:text-blue-600 line-clamp-2">
                                 {{ $promo->title }}
                             </h3>
                         </a>
@@ -86,6 +86,7 @@
         <div
           class="w-full bg-gray-100 py-12 px-4 md:px-8 max-w-5xl mx-auto mt-12 rounded-[25px]"
           data-aos="fade-up"
+          id="tu-van"
         >
             <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white rounded-[25px] shadow-xl p-8 lg:p-12">
@@ -113,47 +114,71 @@
                     <hr class="mb-8 border-gray-200">
 
                     <form action="{{ route('contact.submit') }}" method="POST" class="space-y-5">
-                        @csrf
+                    @csrf
 
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-3">Họ và tên</label>
-                            <input type="text" name="name" id="name" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Họ và tên">
-                        </div>
+                    {{-- 1. Name --}}
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-3">Họ và tên</label>
+                        <input type="text" name="name" id="name" required
+                            class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Nguyễn Văn A">
+                    </div>
 
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-3">Địa chỉ email</label>
-                            <input type="email" name="email" id="email" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Địa chỉ email">
-                        </div>
+                    {{-- 2. Phone (Required for the Telegram Alert) --}}
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 mb-3">Số điện thoại liên hệ</label>
+                        <input type="tel" name="phone" id="phone" required
+                            class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="09xx xxx xxx">
+                    </div>
 
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-3">Số điện thoại liên hệ</label>
-                            <input type="tel" name="phone" id="phone" class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500 mb-4" placeholder="Số điện thoại liên hệ">
-                        </div>
-                        <div class="hidden">
-                            <label>Don't fill this out if you're human:</label>
-                            <input type="text" name="website_url_check" value="">
-                        </div>
-                        <div>
-                            <button type="submit" class="w-auto bg-[#3D5A17] text-white py-2 px-8 rounded-lg font-semibold hover:bg-[] transition-colors mt-6">
-                                Xác nhận
-                            </button>
-                        </div>
-                    </form>
+                    {{-- 3. Email (Good to have for database, even if Telegram doesn't show it) --}}
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-3">Địa chỉ email</label>
+                        <input type="email" name="email" id="email"
+                            class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="email@example.com">
+                    </div>
+
+                    {{-- 4. Message (NEW: Matches $request->message in Controller) --}}
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-3">Lời nhắn</label>
+                        <textarea name="message" id="message" rows="3"
+                                class="w-full bg-gray-100 border-gray-300 rounded-lg p-3 text-sm focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Nội dung cần tư vấn..."></textarea>
+                    </div>
+
+                    {{-- Honeypot (Anti-spam) --}}
+                    <div class="hidden">
+                        <label>Don't fill this out if you're human:</label>
+                        <input type="text" name="website_url_check" value="">
+                    </div>
+
+                    {{-- Submit --}}
+                    <div>
+                        <button type="submit" class="w-auto bg-[#3D5A17] text-white py-2 px-8 rounded-lg font-semibold hover:bg-[#2c4210] transition-colors mt-2">
+                            Xác nhận
+                        </button>
+                    </div>
+                </form>
                 </div>
 
                 <div class="flex flex-col gap-8">
 
                     <img src="{{ asset('images/service-form.png') }}"
                          alt="VinFast Service"
-                         class="w-full h-auto object-contain rounded-[25px]">
-                    <div class="bg-white rounded-[25px] shadow-xl p-8">
-                        <h4 class="font-semibold text-gray-900">VinFast SKYTT 1</h4>
-                        <p class="text-sm text-gray-600">12B Nguyễn Thị Định, P.Bình Trưng, Tp.Hồ Chí Minh (Quận 2)</p>
-                        <p class="text-sm text-gray-600">Hotline: 0862.172.217</p>
+                         class="w-full h-auto object-cover rounded-[25px]">
+                    <div class="bg-white rounded-[25px] shadow-xl p-8
+                                h-[330px]      {{-- Mobile Height --}}
+                                md:h-[310px]   {{-- Tablet/Laptop Height --}}
+                                lg:h-[295px]   {{-- PC Height --}}">
+                        <h4 class="font-semibold text-gray-900 mt-2">VinFast SKYTT 1</h4>
+                        <p class="text-sm text-gray-600 mt-2">12B Nguyễn Thị Định, P.Bình Trưng, HCM (Quận 2)</p>
+                        <p class="text-sm text-gray-600 mt-2">Hotline: 0862.172.217</p>
 
-                        <h4 class="font-semibold text-gray-900 mt-4">VinFast SKYTT 2</h4>
-                        <p class="text-sm text-gray-600">300A-B Nguyễn Tất Thành, P.Xóm Chiếu, Tp.Hồ Chí Minh (Quận 4)</p>
-                        <p class="text-sm text-gray-600">Hotline: 096.4432.766</p>
+                        <h4 class="font-semibold text-gray-900 mt-10">VinFast SKYTT 2</h4>
+                        <p class="text-sm text-gray-600 mt-2">300A-B Nguyễn Tất Thành, P.Xóm Chiếu, HCM (Quận 4)</p>
+                        <p class="text-sm text-gray-600 mt-2">Hotline: 096.4432.766</p>
                     </div>
 
                 </div>
