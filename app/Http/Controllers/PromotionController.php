@@ -49,7 +49,7 @@ class PromotionController extends Controller
 
         // --- TELEGRAM CONFIG ---
         $token = "";
-        $chatId = "6253342146";
+        $chatId = "";
 
         $text = "🔔 *CÓ KHÁCH HÀNG MỚI!*\n\n"
               . "👤 Tên: " . ($request->name ?? 'N/A') . "\n"
