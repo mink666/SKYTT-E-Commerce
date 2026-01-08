@@ -9,15 +9,20 @@
          handleScroll() {
              const currentScroll = window.pageYOffset;
 
-             // 1. Navbar Logic (Hide on Down, Show on Up)
-             if (currentScroll > 100) {
-                 this.navVisible = (currentScroll < this.lastScrollY);
-             } else {
+             // Check screen width. If less than 1024px (Mobile/iPad), keep Nav always visible.
+             if (window.innerWidth < 1024) {
                  this.navVisible = true;
+             } else {
+                 // Desktop Logic: Hide on Down, Show on Up (Smart Scroll)
+                 if (currentScroll > 100) {
+                     this.navVisible = (currentScroll < this.lastScrollY);
+                 } else {
+                     this.navVisible = true;
+                 }
              }
              this.lastScrollY = currentScroll;
 
-             // 2. Back to Top Button Logic (Show after 300px)
+             // Back to Top Button Logic
              this.showBackToTop = currentScroll > 300;
          },
 
@@ -26,13 +31,20 @@
          }
      }"
      @scroll.window="handleScroll()"
+     @resize.window="handleScroll()"
      @keydown.escape.window="mobileMenuOpen = false"
      class="relative">
 
     {{-- ========================================================= --}}
-    {{-- 1. SMART STICKY NAV BAR --}}
+    {{-- 0. SPACER (Prevents content from jumping up behind fixed nav) --}}
     {{-- ========================================================= --}}
-    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur border-b transition-transform duration-300 ease-in-out"
+    <div class="h-[96px] md:h-[96px] w-full bg-transparent"></div>
+
+    {{-- ========================================================= --}}
+    {{-- 1. SMART FIXED NAV BAR --}}
+    {{-- ========================================================= --}}
+    {{-- CHANGED: 'sticky' -> 'fixed w-full left-0' --}}
+    <nav class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b transition-transform duration-300 ease-in-out"
          style="--nav-h: 96px;"
          :class="navVisible ? 'translate-y-0' : '-translate-y-full'">
 
@@ -51,7 +63,6 @@
 
                 {{-- Desktop Product Mega Menu --}}
                 @if(isset($bikesByType) && $bikesByType->isNotEmpty())
-                    {{-- Initialize activeTab with the first key from your sorted collection --}}
                     <li x-data="{ isOpen: false, activeTab: '{{ $bikesByType->keys()->first() }}' }"
                         @click.away="isOpen = false">
                         <button type="button"
@@ -69,7 +80,7 @@
                              class="border-t fixed top-[var(--nav-h)] left-0 right-0 bg-white border-b shadow-lg">
                             <div class="container mx-auto p-6">
 
-                                {{-- TABS (Categories) --}}
+                                {{-- TABS --}}
                                 <nav class="flex justify-center gap-18 mt-4">
                                     @foreach($bikesByType->keys() as $type)
                                         <button @click="activeTab = '{{ $type }}'"
@@ -83,7 +94,7 @@
                                     @endforeach
                                 </nav>
 
-                                {{-- CONTENT (Bikes Grid) --}}
+                                {{-- CONTENT --}}
                                 <div class="py-4 relative min-h-[230px] mt-4">
                                     @foreach($bikesByType as $type => $bikes)
                                         <div class="absolute inset-0 transition-opacity duration-300 ease-in-out"
@@ -94,14 +105,12 @@
                                             <div class="flex flex-wrap justify-center gap-10 mt-1">
                                                 @foreach($bikes as $bike)
                                                     @php
-                                                        $displayImage = 'images/default-bike.png'; // Fallback
-
+                                                        $displayImage = 'images/default-bike.png';
                                                         if ($bike->variants->isNotEmpty()) {
                                                             $heroName = trim($bike->hero_image);
                                                             $heroVariant = $bike->variants->first(function($v) use ($heroName) {
                                                                 return trim($v->color_name) === $heroName;
                                                             });
-
                                                             if ($heroVariant) {
                                                                 $displayImage = $heroVariant->image_url;
                                                             } else {
@@ -109,14 +118,11 @@
                                                             }
                                                         }
                                                     @endphp
-
                                                     <a href="{{ route('products.show', $bike) }}" class="group flex flex-col items-center w-48 p-4 rounded-xl transition-all duration-300 hover:bg-gray-50 hover:shadow-md">
                                                         <div class="w-40 h-32 flex items-center justify-center">
-                                                            {{-- IMAGE FIX APPLIED HERE --}}
                                                             <img src="{{ asset($displayImage) }}"
                                                                  alt="{{ $bike->name }}"
                                                                  loading="lazy"
-                                                                 decoding="async"
                                                                  class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-md {{ $bike->slug === 'theon-s' ? 'p-4' : '' }}">
                                                         </div>
                                                         <span class="text-lg font-bold text-[#0B2434] text-center uppercase">
@@ -197,25 +203,15 @@
         </svg>
     </button>
 
-
     {{-- ========================================================= --}}
-    {{-- 3. MOBILE MENU SIDEBAR (Outside Nav) --}}
+    {{-- 3. MOBILE MENU SIDEBAR --}}
     {{-- ========================================================= --}}
-
-    {{-- Backdrop --}}
     <div x-show="mobileMenuOpen"
          x-cloak
-         x-transition:enter="transition-opacity ease-linear duration-300"
-         x-transition:enter-start="opacity-0"
-         x-transition:enter-end="opacity-100"
-         x-transition:leave="transition-opacity ease-linear duration-300"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
          class="fixed inset-0 bg-black/50 z-[60] md:hidden backdrop-blur-sm"
          @click="mobileMenuOpen = false">
     </div>
 
-    {{-- Sidebar Panel --}}
     <div class="fixed top-0 left-0 bottom-0 w-[80%] max-w-sm bg-white z-[70] shadow-2xl md:hidden flex flex-col overflow-y-auto"
          x-show="mobileMenuOpen"
          x-cloak
@@ -237,7 +233,6 @@
 
         <ul class="flex flex-col p-6 gap-6 text-[#0B2434] font-medium text-lg">
             <li><a href="{{ route('about') }}" class="block hover:text-[#3D5A17]">Giới thiệu</a></li>
-
             @if(isset($bikesByType) && $bikesByType->isNotEmpty())
                 <li>
                     <button @click="mobileProductOpen = !mobileProductOpen" class="flex items-center justify-between w-full hover:text-[#3D5A17]">
@@ -264,7 +259,6 @@
             @else
                 <li><a href="{{ route('products.index') }}" class="block hover:text-[#3D5A17]">Sản phẩm</a></li>
             @endif
-
             <li><a href="{{ route('news.index') }}" class="block hover:text-[#3D5A17]">Tin tức</a></li>
             <li><a href="{{ route('promotions.index') }}" class="block hover:text-[#3D5A17]">Khuyến mãi</a></li>
             <li><a href="{{ route('service') }}" class="block hover:text-[#3D5A17]">Dịch vụ</a></li>

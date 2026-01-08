@@ -111,8 +111,6 @@
                         Hãy để lại email và số điện thoại, chúng tôi sẽ liên hệ ngay trong 24 giờ.
                     </p>
 
-                    <hr class="mb-8 border-gray-200">
-
                     <form action="{{ route('contact.submit') }}" method="POST" class="space-y-5">
                     @csrf
 
