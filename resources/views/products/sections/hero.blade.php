@@ -163,17 +163,11 @@
             <img :src="selectedVariant.image_url"
                 :alt="selectedVariant.color_name"
                 class="w-auto h-auto max-w-[90%] md:max-w-[85%] max-h-[50vh] md:max-h-[700px] object-contain mx-auto drop-shadow-2xl md:drop-shadow-none transition-all duration-300"
-                {{--
-                    DYNAMIC SCALING LOGIC:
-                    - If color is 'Flazz Red': Use p-0 (to make the tiny image fill the space).
-                    - If bike is 'theon-s' (and NOT red): Use p-4 on mobile and p-14 on desktop.
-                    - Default for everything else: p-6.
-                --}}
                 :class="{
-                    'p-0': selectedVariant.color_name === 'Flazz Red',
-                    'p-4 lg:p-14': '{{ $bike->slug }}' === 'theon-s' && selectedVariant.color_name !== 'Flazz Red',
-                    'p-6': selectedVariant.color_name !== 'Flazz Red' && '{{ $bike->slug }}' !== 'theon-s'
-                }"
+                'p-0': selectedVariant.color_name === 'Flazz Red',
+                'p-8 md:p-12 lg:p-16': '{{ $bike->slug }}' === 'theon-s' && selectedVariant.color_name !== 'Flazz Red',
+                'p-6': selectedVariant.color_name !== 'Flazz Red' && '{{ $bike->slug }}' !== 'theon-s'
+            }"
                 data-aos="fade-down"
                 data-aos-duration="1000"
                 data-aos-delay="900"

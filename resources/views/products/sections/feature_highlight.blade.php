@@ -1,4 +1,4 @@
-<div class="bg-white pb-20 mt-16 md:mt-24 border-b border-gray-100"
+<div class="bg-white pb-20 mt-16 md:mt-14"
      x-data="{
          variants: {{ $bike->variants->toJson() }},
          currentIndex: 0,
